@@ -16,4 +16,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/btnPart1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Part 1"
+        android:layout_marginBottom="16dp" />
+
+    <Button
+        android:id="@+id/btnPart2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Part 2"
+        android:layout_marginBottom="16dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
