@@ -18,7 +18,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-
 rootProject.name = "PRM392_MiniGames"
 include(":app")
- 
