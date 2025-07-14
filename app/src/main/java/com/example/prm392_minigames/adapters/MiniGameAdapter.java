@@ -10,8 +10,8 @@ import java.util.List;
 
 public class MiniGameAdapter extends RecyclerView.Adapter<MiniGameAdapter.GameViewHolder> {
 
-    private List<MiniGame> games;
-    private OnGameClickListener listener;
+    private final List<MiniGame> games;
+    private final OnGameClickListener listener;
 
     public interface OnGameClickListener {
         void onGameClick(int position);

@@ -6,11 +6,31 @@
     android:orientation="vertical"
     android:padding="32dp">
 
+    <!-- Hiển thị avatar + frame -->
+    <FrameLayout
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginBottom="16dp">
+        <ImageView
+            android:id="@+id/img_avatar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_avatar_default"
+            android:background="@drawable/bg_avatar_circle"
+            android:scaleType="centerCrop" />
+        <ImageView
+            android:id="@+id/img_frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_frame_default"
+            android:scaleType="centerCrop" />
+    </FrameLayout>
+
     <TextView
         android:id="@+id/tv_hello"
         android:text="Chào bạn, bạn tên gì?"
         android:textSize="22sp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     <EditText
@@ -18,12 +38,25 @@
         android:hint="Nhập tên của bạn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/tv_point"
+        android:text="Điểm: 0"
+        android:layout_marginTop="8dp"
+        android:textSize="15sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:id="@+id/btn_choose_avatar"
+        android:text="Chọn/cập nhật Avatar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"/>
     <Button
         android:id="@+id/btn_continue"
         android:text="Vào chơi ngay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"/>
+        android:layout_marginTop="16dp"/>
     <Button
         android:id="@+id/btn_sync"
         android:text="Đã có tài khoản? Đồng bộ ngay"

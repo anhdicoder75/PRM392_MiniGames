@@ -9,9 +9,12 @@ import com.example.prm392_minigames.R;
 import com.example.prm392_minigames.db.AppDatabaseHelper;
 import com.google.android.gms.auth.api.signin.*;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.*;
 import com.google.android.gms.common.api.ApiException;
 import com.google.firebase.auth.*;
+import com.google.firebase.database.*;
+import java.util.List;
+import java.util.ArrayList;
 
 public class SyncActivity extends Activity {
     private static final int RC_SIGN_IN = 999;
@@ -52,37 +55,71 @@ public class SyncActivity extends Activity {
         FirebaseAuth.getInstance().signInWithCredential(credential)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
-                        Toast.makeText(this, "Đăng nhập thành công! Bắt đầu đồng bộ...", Toast.LENGTH_SHORT).show();
-                        syncProfileToFirebase();
-                        startActivity(new Intent(this, MainActivity.class));
-                        finish();
+                        syncProfileFromCloudOrPushLocal();
                     } else {
                         Toast.makeText(this, "Lỗi xác thực Firebase!", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
 
-    private void syncProfileToFirebase() {
-        AppDatabaseHelper db = new AppDatabaseHelper(this);
-        String name = null;
-        try (Cursor c = db.getProfile()) {
-            if (c != null && c.moveToFirst()) {
-                name = c.getString(c.getColumnIndexOrThrow(AppDatabaseHelper.COL_NAME));
+    private void syncProfileFromCloudOrPushLocal() {
+        String uid = FirebaseAuth.getInstance().getUid();
+        DatabaseReference userRef = com.google.firebase.database.FirebaseDatabase.getInstance()
+                .getReference("profiles").child(uid);
+
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                AppDatabaseHelper db = new AppDatabaseHelper(SyncActivity.this);
+                if (snapshot.exists()) {
+                    // Đã từng sync, lấy về local
+                    UserProfile cloud = snapshot.getValue(UserProfile.class);
+                    db.clearProfile();
+                    db.insertProfile(cloud.name != null ? cloud.name : "Người chơi");
+                    db.updateAvatarUri(cloud.avatarUri);
+                    db.updateFrame(cloud.frame);
+                    db.updatePoint(cloud.point);
+                    if (cloud.ownedFrames != null) db.setAllOwnedFrames(cloud.ownedFrames);
+                    Toast.makeText(SyncActivity.this, "Đã đồng bộ tài khoản từ Cloud!", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Chưa có, upload local lên cloud
+                    Cursor c = db.getProfile();
+                    String name = "Người chơi", avatarUri = null;
+                    int frame = 0, point = 0;
+                    if (c != null && c.moveToFirst()) {
+                        name = c.getString(c.getColumnIndexOrThrow(AppDatabaseHelper.COL_NAME));
+                        avatarUri = c.getString(c.getColumnIndexOrThrow(AppDatabaseHelper.COL_AVATAR));
+                        frame = c.getInt(c.getColumnIndexOrThrow(AppDatabaseHelper.COL_FRAME));
+                        point = c.getInt(c.getColumnIndexOrThrow(AppDatabaseHelper.COL_POINT));
+                    }
+                    List<Integer> ownedFrames = db.getAllOwnedFrames();
+                    UserProfile local = new UserProfile(name, avatarUri, frame, point, ownedFrames);
+                    userRef.setValue(local);
+                    Toast.makeText(SyncActivity.this, "Chưa có dữ liệu Cloud, đã upload hồ sơ hiện tại!", Toast.LENGTH_SHORT).show();
+                }
+                startActivity(new Intent(SyncActivity.this, MainActivity.class));
+                finish();
             }
-        }
-        if (name != null) {
-            String uid = FirebaseAuth.getInstance().getUid();
-            com.google.firebase.database.FirebaseDatabase.getInstance().getReference("profiles")
-                    .child(uid)
-                    .setValue(new UserProfile(name));
-        }
+            @Override public void onCancelled(DatabaseError error) {
+                Toast.makeText(SyncActivity.this, "Lỗi kết nối Cloud!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public static class UserProfile {
         public String name;
+        public String avatarUri;
+        public int frame;
+        public int point;
+        public List<Integer> ownedFrames;
+
         public UserProfile() {}
-        public UserProfile(String name) {
+        public UserProfile(String name, String avatarUri, int frame, int point, List<Integer> ownedFrames) {
             this.name = name;
+            this.avatarUri = avatarUri;
+            this.frame = frame;
+            this.point = point;
+            this.ownedFrames = ownedFrames;
         }
     }
 }

@@ -1,0 +1,8 @@
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android" android:oneshot="false">
+    <item android:drawable="@drawable/ic_frame_rainbow1" android:duration="90" />
+    <item android:drawable="@drawable/ic_frame_rainbow2" android:duration="90" />
+    <item android:drawable="@drawable/ic_frame_rainbow3" android:duration="90" />
+    <item android:drawable="@drawable/ic_frame_rainbow4" android:duration="90" />
+    <item android:drawable="@drawable/ic_frame_rainbow5" android:duration="90" />
+    <item android:drawable="@drawable/ic_frame_rainbow6" android:duration="90" />
+</animation-list>
