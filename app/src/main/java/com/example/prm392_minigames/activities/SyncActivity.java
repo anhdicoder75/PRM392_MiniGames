@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.widget.Toast;
 import com.example.prm392_minigames.R;
-import com.example.prm392_minigames.db.AppDatabaseHelper;
+import com.example.prm392_minigames.hangmangame.db.AppDatabaseHelper;
 import com.google.android.gms.auth.api.signin.*;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.*;
@@ -14,7 +14,6 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.firebase.auth.*;
 import com.google.firebase.database.*;
 import java.util.List;
-import java.util.ArrayList;
 
 public class SyncActivity extends Activity {
     private static final int RC_SIGN_IN = 999;

@@ -1,4 +1,4 @@
-package com.example.prm392_minigames;
+package com.example.prm392_minigames.hangmangame;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,39 +9,41 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity {
+import com.example.prm392_minigames.R;
+
+public class HangmanMainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.hangman_main);
 
-        // Xử lý WindowInsets để hỗ trợ EdgeToEdge
+        // Handle WindowInsets for EdgeToEdge support
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        // Khởi tạo các nút
+        // Initialize buttons
         Button btnStartGame = findViewById(R.id.btnStartGame);
         Button btnHighScores = findViewById(R.id.btnHighScores);
         Button btnExit = findViewById(R.id.btnExit);
 
-        // Xử lý sự kiện nhấn nút "Bắt đầu chơi"
+        // Handle "Start Game" button click
         btnStartGame.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, HangmanGameActivity.class);
+            Intent intent = new Intent(HangmanMainActivity.this, HangmanGameActivity.class);
             startActivity(intent);
         });
 
-        // Xử lý sự kiện nhấn nút "Xem điểm cao"
+        // Handle "High Scores" button click
         btnHighScores.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, GameScoreActivity.class);
+            Intent intent = new Intent(HangmanMainActivity.this, GameScoreActivity.class);
             startActivity(intent);
         });
 
-        // Xử lý sự kiện nhấn nút "Thoát"
+        // Handle "Exit" button click
         btnExit.setOnClickListener(v -> finish());
     }
 }

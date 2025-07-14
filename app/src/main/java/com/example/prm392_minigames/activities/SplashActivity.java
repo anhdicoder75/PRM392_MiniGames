@@ -4,7 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import com.example.prm392_minigames.db.AppDatabaseHelper;
+
+import com.example.prm392_minigames.hangmangame.db.AppDatabaseHelper;
 
 public class SplashActivity extends Activity {
     @Override

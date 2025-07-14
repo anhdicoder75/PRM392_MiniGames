@@ -1,4 +1,4 @@
-package com.example.prm392_minigames;
+package com.example.prm392_minigames.hangmangame;
 
 
 import android.os.Bundle;
@@ -8,6 +8,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.prm392_minigames.R;
+
 import java.util.List;
 
 public class GameScoreActivity extends AppCompatActivity {

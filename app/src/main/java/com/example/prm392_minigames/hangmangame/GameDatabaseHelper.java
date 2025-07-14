@@ -1,4 +1,4 @@
-package com.example.prm392_minigames;
+package com.example.prm392_minigames.hangmangame;
 
 import android.content.ContentValues;
 import android.content.Context;

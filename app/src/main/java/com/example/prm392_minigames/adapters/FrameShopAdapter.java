@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.prm392_minigames.R;
 import com.example.prm392_minigames.models.AvatarFrame;
-import com.example.prm392_minigames.db.AppDatabaseHelper;
+
 import java.util.List;
 
 public class FrameShopAdapter extends RecyclerView.Adapter<FrameShopAdapter.FrameViewHolder> {

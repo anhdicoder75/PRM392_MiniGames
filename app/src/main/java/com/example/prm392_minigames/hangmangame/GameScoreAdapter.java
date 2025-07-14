@@ -1,4 +1,4 @@
-package com.example.prm392_minigames;
+package com.example.prm392_minigames.hangmangame;
 
 
 import android.content.Context;
@@ -7,6 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.example.prm392_minigames.R;
+
 import java.util.List;
 
 public class GameScoreAdapter extends BaseAdapter {
