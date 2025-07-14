@@ -1,5 +1,6 @@
 package com.example.prm392_minigames.activities;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.*;
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.*;
 import com.example.prm392_minigames.R;
 import com.example.prm392_minigames.models.MemoryCard;
 import com.example.prm392_minigames.adapters.MemoryCardAdapter;
+import com.example.prm392_minigames.db.AppDatabaseHelper;
 import java.util.*;
 
 public class MemoryGameActivity extends AppCompatActivity {
@@ -18,9 +20,16 @@ public class MemoryGameActivity extends AppCompatActivity {
     int score = 0;
     int flippedPos = -1;
     Handler handler = new Handler();
-    long startTime;
     Runnable timerRunnable;
     boolean isProcessing = false;
+
+    // ==== TIMER LOGIC ====
+    static final int TIME_LIMIT = 60; // 60 giây giới hạn
+    int timeLeft = TIME_LIMIT;
+
+    // ==== PROFILE POINT ====
+    AppDatabaseHelper dbHelper;
+    int oldPoint = 0;
 
     int[] iconList = {
             R.drawable.ic_card_dog, R.drawable.ic_card_cat, R.drawable.ic_card_snake,
@@ -36,17 +45,31 @@ public class MemoryGameActivity extends AppCompatActivity {
         tvScore = findViewById(R.id.tv_score);
         tvTimer = findViewById(R.id.tv_timer);
 
+        // Lấy dữ liệu profile để biết điểm cũ
+        dbHelper = new AppDatabaseHelper(this);
+        Cursor c = dbHelper.getProfile();
+        if (c != null && c.moveToFirst()) {
+            oldPoint = c.getInt(c.getColumnIndexOrThrow(AppDatabaseHelper.COL_POINT));
+            c.close();
+        }
+
         setupGame();
 
         timerRunnable = new Runnable() {
-            @Override public void run() {
-                long s = (System.currentTimeMillis() - startTime) / 1000;
-                tvTimer.setText(String.format("%02d:%02d", s/60, s%60));
-                handler.postDelayed(this, 500);
+            @Override
+            public void run() {
+                if (timeLeft > 0) {
+                    timeLeft--;
+                    tvTimer.setText(String.format("⏳ %02d:%02d", timeLeft / 60, timeLeft % 60));
+                    handler.postDelayed(this, 1000);
+                } else {
+                    finishGame();
+                }
             }
         };
-        startTime = System.currentTimeMillis();
-        handler.post(timerRunnable);
+        timeLeft = TIME_LIMIT;
+        tvTimer.setText(String.format("⏳ %02d:%02d", timeLeft / 60, timeLeft % 60));
+        handler.postDelayed(timerRunnable, 1000);
     }
 
     void setupGame() {
@@ -68,10 +91,12 @@ public class MemoryGameActivity extends AppCompatActivity {
         tvScore.setText("Điểm: 0");
         flippedPos = -1;
         isProcessing = false;
+        timeLeft = TIME_LIMIT;
+        tvTimer.setText(String.format("⏳ %02d:%02d", timeLeft / 60, timeLeft % 60));
     }
 
     void onCardClick(int pos) {
-        if (isProcessing) return;
+        if (isProcessing || timeLeft <= 0) return;
         if (cards.get(pos).isFlipped || cards.get(pos).isMatched) return;
 
         cards.get(pos).isFlipped = true;
@@ -109,17 +134,40 @@ public class MemoryGameActivity extends AppCompatActivity {
 
     void finishGame() {
         handler.removeCallbacks(timerRunnable);
-        long totalTime = (System.currentTimeMillis() - startTime)/1000;
-        int bonus = Math.max(0, 60 - (int)totalTime);
+        boolean win = isGameDone();
+        int reward = 0;
+
+        if (win) {
+            // Điểm thưởng = điểm đạt được + thời gian dư
+            reward = score + timeLeft;
+        } else {
+            // Thua: chỉ cộng điểm kiếm được
+            reward = score;
+        }
+
+        // Cộng dồn vào profile
+        int totalPoint = oldPoint + reward;
+        dbHelper.updatePoint(totalPoint);
+
         new android.app.AlertDialog.Builder(this)
-                .setTitle("Chiến thắng!")
-                .setMessage("Điểm: " + score + "\nBonus tốc độ: " + bonus + "\nTổng cộng: " + (score + bonus))
-                .setPositiveButton("Chơi lại", (d,w) -> {
+                .setTitle(win ? "Chiến thắng!" : "Hết giờ!")
+                .setMessage(
+                        "Điểm: " + score +
+                                (win ? ("\nBonus thời gian: " + timeLeft) : "") +
+                                "\nReward: " + reward +
+                                "\n\nTổng điểm: " + totalPoint
+                )
+                .setPositiveButton("Chơi lại", (d, w) -> {
+                    // Cập nhật lại điểm profile mới nhất
+                    Cursor c = dbHelper.getProfile();
+                    if (c != null && c.moveToFirst()) {
+                        oldPoint = c.getInt(c.getColumnIndexOrThrow(AppDatabaseHelper.COL_POINT));
+                        c.close();
+                    }
                     setupGame();
-                    startTime = System.currentTimeMillis();
-                    handler.post(timerRunnable);
+                    handler.postDelayed(timerRunnable, 1000);
                 })
-                .setNegativeButton("Thoát", (d,w) -> finish())
+                .setNegativeButton("Thoát", (d, w) -> finish())
                 .show();
     }
 }
