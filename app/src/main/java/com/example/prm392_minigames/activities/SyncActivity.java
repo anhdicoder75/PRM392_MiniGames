@@ -1,21 +1,22 @@
 package com.example.prm392_minigames.activities;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
+
 import com.example.prm392_minigames.R;
 import com.example.prm392_minigames.db.AppDatabaseHelper;
 import com.google.android.gms.auth.api.signin.*;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.*;
 import com.google.android.gms.common.api.ApiException;
 import com.google.firebase.auth.*;
 import com.google.firebase.database.*;
+
 import java.util.List;
-import java.util.ArrayList;
 
 public class SyncActivity extends Activity {
     private static final int RC_SIGN_IN = 999;
@@ -76,7 +77,6 @@ public class SyncActivity extends Activity {
             return;
         }
 
-        // Sử dụng đúng URL realtime DB theo region của bạn
         DatabaseReference userRef = FirebaseDatabase.getInstance(
                         "https://prm392minigames-default-rtdb.asia-southeast1.firebasedatabase.app")
                 .getReference("profiles").child(uid);
@@ -88,7 +88,6 @@ public class SyncActivity extends Activity {
             public void onDataChange(DataSnapshot snapshot) {
                 AppDatabaseHelper db = new AppDatabaseHelper(SyncActivity.this);
                 if (snapshot.exists()) {
-                    // Đã từng sync, lấy về local
                     UserProfile cloud = snapshot.getValue(UserProfile.class);
                     if (cloud != null) {
                         db.clearProfile();
@@ -97,14 +96,13 @@ public class SyncActivity extends Activity {
                         db.updateFrame(cloud.frame);
                         db.updatePoint(cloud.point);
                         if (cloud.ownedFrames != null) db.setAllOwnedFrames(cloud.ownedFrames);
-                        Toast.makeText(SyncActivity.this, "Đã đồng bộ tài khoản từ Cloud!", Toast.LENGTH_SHORT).show();
-                        Log.d(TAG, "Profile synced from cloud");
+
+                        showSyncDialog("Đã đồng bộ tài khoản từ Cloud!");
                     } else {
                         Toast.makeText(SyncActivity.this, "Dữ liệu cloud không hợp lệ!", Toast.LENGTH_SHORT).show();
                         Log.e(TAG, "Cloud data snapshot null");
                     }
                 } else {
-                    // Chưa có, upload local lên cloud
                     Cursor c = db.getProfile();
                     String name = "Người chơi";
                     String avatarUri = null;
@@ -119,17 +117,15 @@ public class SyncActivity extends Activity {
                                 point = c.getInt(c.getColumnIndexOrThrow(AppDatabaseHelper.COL_POINT));
                             }
                         } finally {
-                            c.close(); // đóng cursor tránh leak
+                            c.close();
                         }
                     }
                     List<Integer> ownedFrames = db.getAllOwnedFrames();
                     UserProfile local = new UserProfile(name, avatarUri, frame, point, ownedFrames);
                     userRef.setValue(local);
-                    Toast.makeText(SyncActivity.this, "Chưa có dữ liệu Cloud, đã upload hồ sơ hiện tại!", Toast.LENGTH_SHORT).show();
-                    Log.d(TAG, "Profile uploaded to cloud");
+
+                    showSyncDialog("Chưa có dữ liệu Cloud, đã upload hồ sơ hiện tại!");
                 }
-                startActivity(new Intent(SyncActivity.this, MainActivity.class));
-                finish();
             }
 
             @Override
@@ -140,6 +136,19 @@ public class SyncActivity extends Activity {
         });
     }
 
+    // Hiện dialog thông báo rồi mới chuyển màn hình
+    private void showSyncDialog(String message) {
+        new AlertDialog.Builder(this)
+                .setTitle("Thông báo")
+                .setMessage(message)
+                .setCancelable(false)
+                .setPositiveButton("OK", (dialog, which) -> {
+                    startActivity(new Intent(SyncActivity.this, MainActivity.class));
+                    finish();
+                })
+                .show();
+    }
+
     public static class UserProfile {
         public String name;
         public String avatarUri;
@@ -147,7 +156,8 @@ public class SyncActivity extends Activity {
         public int point;
         public List<Integer> ownedFrames;
 
-        public UserProfile() {}
+        public UserProfile() {
+        }
 
         public UserProfile(String name, String avatarUri, int frame, int point, List<Integer> ownedFrames) {
             this.name = name;
