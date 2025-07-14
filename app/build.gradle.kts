@@ -41,9 +41,18 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
+
     // Firebase, Google Sign-In
     implementation(platform("com.google.firebase:firebase-bom:32.7.4"))
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-database")
     implementation("com.google.android.gms:play-services-auth:20.7.0")
+
+
+    implementation(libs.room.runtime)
+    annotationProcessor(libs.room.compiler)
+    implementation(libs.gson)
+    implementation(libs.cloudinary)
+    implementation(libs.glide)
+    annotationProcessor(libs.glide.compiler)
 }
