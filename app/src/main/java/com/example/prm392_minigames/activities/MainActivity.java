@@ -48,13 +48,17 @@ public class MainActivity extends Activity {
         // Setup RecyclerView - danh sách mini game
         List<MiniGame> games = Arrays.asList(
                 new MiniGame(R.drawable.ic_quiz, "Trắc nghiệm kiến thức", "Quiz game hỏi đáp, nhiều câu, tổng kết điểm."),
-                new MiniGame(R.drawable.ic_brush, "Scribble It!", "Bạn vẽ - tôi đoán/chê, máy random đề tài cho bạn vẽ!"),
+                new MiniGame(R.drawable.ic_brush, "Trí nhớ!", "Bạn có thể lật nhanh hơn ai!"),
                 new MiniGame(R.drawable.ic_volume, "Sound Guess", "Nghe âm thanh, chọn đáp án đúng, có bảng xếp hạng."),
                 new MiniGame(R.drawable.ic_image, "Image Guess", "Đoán hình ảnh: chọn đúng đáp án từ ảnh random."),
                 new MiniGame(R.drawable.ic_hangman, "Hangman", "Đoán chữ cái, có hint, sai nhiều thua, trừ điểm.")
         );
         MiniGameAdapter adapter = new MiniGameAdapter(games, position -> {
-            Toast.makeText(this, "Chức năng game này sẽ sớm mở!", Toast.LENGTH_SHORT).show();
+            if (position == 1) { // Memory game
+                startActivity(new Intent(this, MemoryGameActivity.class));
+            } else {
+                Toast.makeText(this, "Chức năng game này sẽ sớm mở!", Toast.LENGTH_SHORT).show();
+            }
         });
         rvGames.setLayoutManager(new LinearLayoutManager(this));
         rvGames.setAdapter(adapter);

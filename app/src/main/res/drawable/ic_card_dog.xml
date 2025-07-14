@@ -1,0 +1,30 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp" android:height="48dp"
+    android:viewportWidth="24" android:viewportHeight="24">
+    <!-- Tai trái -->
+    <path android:fillColor="#FFC107"
+        android:pathData="M2,7 Q2,5 5,6 Q8,7 7,10 Q7,13 3,12 Q2,11 2,7Z"/>
+    <!-- Tai phải -->
+    <path android:fillColor="#FFC107"
+        android:pathData="M22,7 Q22,5 19,6 Q16,7 17,10 Q17,13 21,12 Q22,11 22,7Z"/>
+    <!-- Đầu -->
+    <path android:fillColor="#FFEB3B"
+        android:pathData="M5,13 Q7,6 17,6 Q19,13 12,20 Q5,13 5,13Z"/>
+    <!-- Mắt trái -->
+    <path android:fillColor="#fff"
+        android:pathData="M8.7,13.2 a1.2,1.7 0 1,0 2.4,0 a1.2,1.7 0 1,0 -2.4,0"/>
+    <path android:fillColor="#000"
+        android:pathData="M9.5,14 a0.5,0.5 0 1,0 1,0 a0.5,0.5 0 1,0 -1,0"/>
+    <!-- Mắt phải -->
+    <path android:fillColor="#fff"
+        android:pathData="M14.3,13.2 a1.2,1.7 0 1,0 2.4,0 a1.2,1.7 0 1,0 -2.4,0"/>
+    <path android:fillColor="#000"
+        android:pathData="M15.5,14 a0.5,0.5 0 1,0 1,0 a0.5,0.5 0 1,0 -1,0"/>
+    <!-- Mũi -->
+    <path android:fillColor="#795548"
+        android:pathData="M11.6,16.2 a0.4,0.4 0 1,0 0.8,0 a0.4,0.4 0 1,0 -0.8,0"/>
+    <!-- Miệng -->
+    <path android:strokeColor="#000" android:strokeWidth="0.6"
+        android:fillColor="@android:color/transparent"
+        android:pathData="M11,17 Q12,18 13,17"/>
+</vector>
