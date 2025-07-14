@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.prm392_minigames">
 
     <application
         android:allowBackup="true"
@@ -12,18 +13,29 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PRM392_MiniGames"
         tools:targetApi="31">
+
+        <!-- Splash activity để kiểm tra profile -->
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.SplashActivity"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 
+
         <activity android:name=".HangmanGameActivity" />
         <activity android:name=".GameScoreActivity" />
+
+        <!-- Các activity khác (nên khai báo) -->
+        <activity android:name=".activities.ProfileActivity"/>
+        <activity android:name=".activities.MainActivity"/>
+        <activity android:name=".activities.SyncActivity"/>
+        <activity android:name=".activities.FrameActivity"/>
+        <activity android:name=".activities.ShopActivity"/>
+
+
     </application>
 
 </manifest>
