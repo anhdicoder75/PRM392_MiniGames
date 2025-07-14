@@ -2,10 +2,9 @@ package com.example.prm392_minigames.activities;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
 import android.database.Cursor;
+import android.os.Bundle;
 import android.widget.Toast;
-
 import com.example.prm392_minigames.R;
 import com.example.prm392_minigames.db.AppDatabaseHelper;
 import com.google.android.gms.auth.api.signin.*;
@@ -23,7 +22,7 @@ public class SyncActivity extends Activity {
         setContentView(R.layout.activity_sync);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id)) // giá trị này lấy ở firebase console
+                .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
         GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(this, gso);

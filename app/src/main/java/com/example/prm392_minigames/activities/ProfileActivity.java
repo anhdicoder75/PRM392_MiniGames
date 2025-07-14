@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.*;
 import android.content.Intent;
-
 import com.example.prm392_minigames.R;
 import com.example.prm392_minigames.db.AppDatabaseHelper;
 

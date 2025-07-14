@@ -30,7 +30,7 @@ public class AppDatabaseHelper extends SQLiteOpenHelper {
 
     public void insertProfile(String name) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_PROFILE, null, null); // Xóa cũ nếu có, luôn chỉ có 1 dòng
+        db.delete(TABLE_PROFILE, null, null); // Chỉ 1 dòng duy nhất
         ContentValues values = new ContentValues();
         values.put(COL_NAME, name);
         db.insert(TABLE_PROFILE, null, values);
