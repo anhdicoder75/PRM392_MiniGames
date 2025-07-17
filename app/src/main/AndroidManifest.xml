@@ -38,6 +38,14 @@
         <activity android:name=".activities.FrameActivity"/>
         <activity android:name=".activities.ShopActivity"/>
 
+
+
+        <!-- Các activity game (SoundGame) -->
+        <activity android:name="com.namnq.activity.SoundGamePlayActivity"/>
+        <activity android:name="com.namnq.activity.SoundGameCategoryActivity"/>
+        <activity android:name="com.namnq.activity.SoundGameAddQuestionsActivity"/>
+
+
     </application>
 
 </manifest>

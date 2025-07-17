@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/sound_game_add_question" android:layout_width="match_parent" android:layout_height="match_parent" android:padding="16dp">
+
+  <LinearLayout android:id="@+id/container" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_margin="8dp" android:elevation="8dp" android:orientation="vertical" android:padding="20dp">
+
+    <!-- Dynamic Options -->
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="12dp" android:text="🎮 Game Options" android:textColor="#2E3A59" android:textSize="18sp" android:textStyle="bold" />
+
+    <LinearLayout android:id="@+id/optionContainer" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="8dp" android:orientation="vertical" android:padding="12dp" />
+
+    <Button android:id="@+id/btnAddOption" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="16dp" android:elevation="4dp" android:padding="12dp" android:text="➕ Add Option" android:textColor="#FFFFFF" android:textStyle="bold" />
+
+    <!-- Correct Answer -->
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="8dp" android:text="🎯 Correct Answer" android:textColor="#2E3A59" android:textSize="16sp" android:textStyle="bold" />
+
+    <Spinner android:id="@+id/spinnerCorrectAnswer" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:layout_marginBottom="16dp" android:padding="12dp" />
+
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:text="Category" android:textStyle="bold" />
+
+    <Spinner android:id="@+id/spinnerCategory" android:layout_width="match_parent" android:layout_height="wrap_content" />
+
+    <!-- Hint -->
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="32dp" android:layout_marginBottom="8dp" android:text="💡 Hint" android:textColor="#2E3A59" android:textSize="16sp" android:textStyle="bold" />
+
+    <EditText android:id="@+id/etHint" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp" android:hint="Enter a helpful hint..." android:paddingHorizontal="16dp" android:paddingVertical="15dp" android:textSize="14sp" />
+
+    <!-- Explanation -->
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="8dp" android:text="📝 Explanation" android:textColor="#2E3A59" android:textSize="16sp" android:textStyle="bold" />
+
+    <EditText android:id="@+id/etExplanation" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp" android:hint="Explain the correct answer..." android:paddingHorizontal="16dp" android:paddingVertical="15dp" android:textSize="14sp" />
+
+    <!-- Difficulty -->
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="8dp" android:text="⭐ Difficulty Level" android:textColor="#2E3A59" android:textSize="16sp" android:textStyle="bold" />
+
+    <EditText android:id="@+id/etDifficulty" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp" android:hint="Difficulty (1-5)" android:inputType="number" android:paddingHorizontal="16dp" android:paddingVertical="15dp" android:textSize="14sp" />
+
+    <!-- Time Limit -->
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="8dp" android:text="⏱️ Time Challenge" android:textColor="#2E3A59" android:textSize="16sp" android:textStyle="bold" />
+
+    <EditText android:id="@+id/etTimeLimit" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp" android:hint="Time Limit (seconds)" android:inputType="number" android:paddingHorizontal="16dp" android:paddingVertical="15dp" android:textSize="14sp" />
+
+    <!-- Sound Picker -->
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="8dp" android:text="🔊 Game Sounds" android:textColor="#2E3A59" android:textSize="16sp" android:textStyle="bold" />
+
+    <Button android:id="@+id/btnPickSounds" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="12dp" android:elevation="4dp" android:padding="14dp" android:text="🔊 Pick Game Sounds" android:textColor="#FFFFFF" android:textStyle="bold" />
+
+    <!-- RecyclerView for sound previews -->
+    <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvSelectedSounds" android:layout_width="match_parent" android:layout_height="100dp" android:layout_marginTop="8dp" android:layout_marginBottom="8dp" android:padding="8dp" />
+
+    <Button android:id="@+id/btnClearSounds" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:layout_marginBottom="20dp" android:elevation="4dp" android:padding="14dp" android:text="🗑️ Clear All Sounds" android:textColor="#FFFFFF" android:textStyle="bold" />
+
+    <!-- Save -->
+    <Button android:id="@+id/btnUploadAndSave" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:elevation="6dp" android:padding="16dp" android:text="🚀 Upload  Save Question" android:textColor="#FFFFFF" android:textSize="16sp" android:textStyle="bold" />
+  </LinearLayout>
+</ScrollView>

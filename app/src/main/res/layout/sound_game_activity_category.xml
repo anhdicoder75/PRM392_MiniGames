@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/sound_game_activity_category" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:padding="16dp">
+
+  <EditText android:id="@+id/etCategoryName" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Category name" android:paddingVertical="15dp" />
+
+  <EditText android:id="@+id/etCategoryDescription" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Description" android:inputType="textMultiLine" android:minLines="2" android:maxLines="4" android:gravity="top|start" android:scrollbars="vertical" />
+
+  <Button android:id="@+id/btnAddCategory" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Add Category" />
+
+  <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvCategories" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" />
+
+</LinearLayout>

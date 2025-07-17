@@ -14,6 +14,8 @@ import com.example.prm392_minigames.models.MiniGame;
 import com.example.prm392_minigames.adapters.MiniGameAdapter;
 import android.graphics.drawable.AnimationDrawable;
 
+import namnq.activity.SoundGamePlayActivity;
+
 import java.util.*;
 
 public class MainActivity extends Activity {
@@ -47,15 +49,39 @@ public class MainActivity extends Activity {
 
         // Setup RecyclerView - danh sách mini game
         List<MiniGame> games = Arrays.asList(
-                new MiniGame(R.drawable.ic_quiz, "Trắc nghiệm kiến thức", "Quiz game hỏi đáp, nhiều câu, tổng kết điểm."),
-                new MiniGame(R.drawable.ic_brush, "Scribble It!", "Bạn vẽ - tôi đoán/chê, máy random đề tài cho bạn vẽ!"),
+                new MiniGame(R.drawable.ic_quiz, "Trắc nghiệm kiến thức",
+                        "Quiz game hỏi đáp, nhiều câu, tổng kết điểm."),
+                new MiniGame(R.drawable.ic_brush, "Scribble It!",
+                        "Bạn vẽ - tôi đoán/chê, máy random đề tài cho bạn vẽ!"),
                 new MiniGame(R.drawable.ic_volume, "Sound Guess", "Nghe âm thanh, chọn đáp án đúng, có bảng xếp hạng."),
                 new MiniGame(R.drawable.ic_image, "Image Guess", "Đoán hình ảnh: chọn đúng đáp án từ ảnh random."),
-                new MiniGame(R.drawable.ic_hangman, "Hangman", "Đoán chữ cái, có hint, sai nhiều thua, trừ điểm.")
-        );
+                new MiniGame(R.drawable.ic_hangman, "Hangman", "Đoán chữ cái, có hint, sai nhiều thua, trừ điểm."));
+//        MiniGameAdapter adapter = new MiniGameAdapter(games, position -> {
+//            Toast.makeText(this, "Chức năng game này sẽ sớm mở!", Toast.LENGTH_SHORT).show();
+//        });
+
+
         MiniGameAdapter adapter = new MiniGameAdapter(games, position -> {
-            Toast.makeText(this, "Chức năng game này sẽ sớm mở!", Toast.LENGTH_SHORT).show();
+            switch (position) {
+                case 0:
+                    Toast.makeText(this, "Quiz game chưa mở!", Toast.LENGTH_SHORT).show();
+                    break;
+                case 1:
+                    Toast.makeText(this, "Scribble It chưa mở!", Toast.LENGTH_SHORT).show();
+                    break;
+                case 2:
+                    startActivity(new Intent(this, SoundGamePlayActivity.class));
+                    break;
+                case 3:
+                    Toast.makeText(this, "Image Guess chưa mở!", Toast.LENGTH_SHORT).show();
+                    break;
+                case 4:
+                    Toast.makeText(this, "Hangman chưa mở!", Toast.LENGTH_SHORT).show();
+                    break;
+            }
         });
+
+
         rvGames.setLayoutManager(new LinearLayoutManager(this));
         rvGames.setAdapter(adapter);
 
