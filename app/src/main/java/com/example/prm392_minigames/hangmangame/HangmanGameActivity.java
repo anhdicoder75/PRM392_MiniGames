@@ -1,10 +1,11 @@
-        package com.example.prm392_minigames.hangmangame;
+package com.example.prm392_minigames.hangmangame;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +22,7 @@ public class HangmanGameActivity extends AppCompatActivity {
     private EditText etGuess;
     private Button btnGuess, btnNewGame, btnScores, btnHint;
     private ImageButton btnAddWord;
+    private ImageView ivHangman;
 
     private List<GameWord> wordsList;
     private GameWord currentWord;
@@ -30,7 +32,7 @@ public class HangmanGameActivity extends AppCompatActivity {
     private int maxWrongGuesses = 6;
     private int currentQuestionIndex = 0;
     private int correctAnswers = 0;
-    private List<Character> revealedLetters; // Track revealed letters
+    private List<Character> revealedLetters;
     private boolean gameWon = false;
 
     @Override
@@ -56,6 +58,7 @@ public class HangmanGameActivity extends AppCompatActivity {
         btnScores = findViewById(R.id.btnScores);
         btnHint = findViewById(R.id.btnHint);
         btnAddWord = findViewById(R.id.btnAddWord);
+        ivHangman = findViewById(R.id.ivHangman);
 
         btnGuess.setOnClickListener(v -> makeGuess());
         btnNewGame.setOnClickListener(v -> startNewGame());
@@ -116,8 +119,8 @@ public class HangmanGameActivity extends AppCompatActivity {
     }
 
     private void nextQuestion() {
-        if (currentQuestionIndex >= 10) { // Chỉ kiểm tra giới hạn 10 câu
-            endGame(false); // Gọi endGame với trạng thái thắng
+        if (currentQuestionIndex >= 10) {
+            endGame(false);
             return;
         }
 
@@ -136,6 +139,7 @@ public class HangmanGameActivity extends AppCompatActivity {
         etGuess.setEnabled(true);
         btnGuess.setEnabled(true);
         btnHint.setEnabled(score > 0);
+        updateHangmanFigure();
     }
 
     private void makeGuess() {
@@ -165,14 +169,17 @@ public class HangmanGameActivity extends AppCompatActivity {
             wrongGuesses++;
             score = Math.max(0, score - 2);
             Toast.makeText(this, "Sai rồi! -2 điểm", Toast.LENGTH_SHORT).show();
+            updateDisplay(); // Update display before checking game over
 
-            if (wrongGuesses >= maxWrongGuesses) {
-                endGame(true); // Gọi endGame với trạng thái thua
+            if (wrongGuesses == maxWrongGuesses) {
+                tvWord.postDelayed(() -> endGame(true), 2000); // Delay game over to show hangman_6
+                etGuess.setEnabled(false);
+                btnGuess.setEnabled(false);
+                btnHint.setEnabled(false);
                 return;
             }
         }
 
-        updateDisplay();
         etGuess.setText("");
     }
 
@@ -234,6 +241,12 @@ public class HangmanGameActivity extends AppCompatActivity {
         tvProgress.setText("Tiến độ: " + (currentQuestionIndex + 1) + "/10");
 
         btnHint.setEnabled(score > 0);
+        updateHangmanFigure();
+    }
+
+    private void updateHangmanFigure() {
+        int drawableId = getResources().getIdentifier("hangman_" + wrongGuesses, "drawable", getPackageName());
+        ivHangman.setImageResource(drawableId);
     }
 
     private void endGame(boolean isGameOver) {
@@ -247,13 +260,13 @@ public class HangmanGameActivity extends AppCompatActivity {
             score += 50;
             Toast.makeText(this, "Chúc mừng! Hoàn thành 10/10 câu! Bonus +50 điểm", Toast.LENGTH_LONG).show();
             tvWord.setText("CONGRATULATIONS");
-        } else {
+            dbHelper.addScore(playerName, score);
+        } else if (isGameOver && wrongGuesses == maxWrongGuesses) {
             Toast.makeText(this, "Trò chơi kết thúc! Điểm cuối: " + score +
                     "\nSố câu đúng: " + correctAnswers + "/10", Toast.LENGTH_LONG).show();
             tvWord.setText("GAME OVER");
+            dbHelper.addScore(playerName, score);
         }
-
-        dbHelper.addScore(playerName, score);
 
         tvProgress.setText("Hoàn thành: " + correctAnswers + "/10");
     }

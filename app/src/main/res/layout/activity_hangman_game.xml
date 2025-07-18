@@ -16,12 +16,23 @@
         android:contentDescription="Thêm từ mới"
         android:padding="8dp" />
 
+    <!-- Hangman figure -->
+    <ImageView
+        android:id="@+id/ivHangman"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_below="@id/btnAddWord"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/hangman_0"
+        android:contentDescription="Hangman figure"
+        android:layout_marginBottom="16dp"/>
+
     <!-- Nội dung chính (LinearLayout dọc) -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_below="@id/btnAddWord"
+        android:layout_below="@id/ivHangman"
         android:layout_centerHorizontal="true">
 
         <!-- Tiêu đề -->
