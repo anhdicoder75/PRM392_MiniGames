@@ -1,9 +1,10 @@
-package com.example.prm392_minigames.hangmangame;
+        package com.example.prm392_minigames.hangmangame;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,7 +19,8 @@ public class HangmanGameActivity extends AppCompatActivity {
     private GameDatabaseHelper dbHelper;
     private TextView tvWord, tvScore, tvWrongGuesses, tvQuestion, tvProgress;
     private EditText etGuess;
-    private Button btnGuess, btnNewGame, btnScores;
+    private Button btnGuess, btnNewGame, btnScores, btnHint;
+    private ImageButton btnAddWord;
 
     private List<GameWord> wordsList;
     private GameWord currentWord;
@@ -28,7 +30,7 @@ public class HangmanGameActivity extends AppCompatActivity {
     private int maxWrongGuesses = 6;
     private int currentQuestionIndex = 0;
     private int correctAnswers = 0;
-    private List<Character> guessedLetters;
+    private List<Character> revealedLetters; // Track revealed letters
     private boolean gameWon = false;
 
     @Override
@@ -52,14 +54,17 @@ public class HangmanGameActivity extends AppCompatActivity {
         btnGuess = findViewById(R.id.btnGuess);
         btnNewGame = findViewById(R.id.btnNewGame);
         btnScores = findViewById(R.id.btnScores);
+        btnHint = findViewById(R.id.btnHint);
+        btnAddWord = findViewById(R.id.btnAddWord);
 
         btnGuess.setOnClickListener(v -> makeGuess());
         btnNewGame.setOnClickListener(v -> startNewGame());
         btnScores.setOnClickListener(v -> showScores());
+        btnHint.setOnClickListener(v -> showHint());
+        btnAddWord.setOnClickListener(v -> openAddWordActivity());
     }
 
     private void setupGameWords() {
-        // Thêm từ mẫu vào database nếu chưa có
         if (!dbHelper.hasWords()) {
             String[] words = {
                     "CAT", "Một loài động vật nuôi phổ biến, thích săn chuột",
@@ -96,7 +101,6 @@ public class HangmanGameActivity extends AppCompatActivity {
             return;
         }
 
-        // Trộn danh sách từ
         shuffleWords();
         nextQuestion();
     }
@@ -112,18 +116,17 @@ public class HangmanGameActivity extends AppCompatActivity {
     }
 
     private void nextQuestion() {
-        if (currentQuestionIndex >= wordsList.size() || currentQuestionIndex >= 10) {
-            endGame();
+        if (currentQuestionIndex >= 10) { // Chỉ kiểm tra giới hạn 10 câu
+            endGame(false); // Gọi endGame với trạng thái thắng
             return;
         }
 
         currentWord = wordsList.get(currentQuestionIndex);
         displayWord = new StringBuilder();
-        guessedLetters = new ArrayList<>();
+        revealedLetters = new ArrayList<>();
         wrongGuesses = 0;
         gameWon = false;
 
-        // Khởi tạo từ hiển thị với dấu gạch dưới
         for (int i = 0; i < currentWord.getWord().length(); i++) {
             displayWord.append("_ ");
         }
@@ -132,76 +135,95 @@ public class HangmanGameActivity extends AppCompatActivity {
         etGuess.setText("");
         etGuess.setEnabled(true);
         btnGuess.setEnabled(true);
+        btnHint.setEnabled(score > 0);
     }
 
     private void makeGuess() {
         String guess = etGuess.getText().toString().trim().toUpperCase();
 
         if (guess.isEmpty()) {
-            Toast.makeText(this, "Vui lòng nhập một chữ cái!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Vui lòng nhập một từ!", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (guess.length() != 1) {
-            Toast.makeText(this, "Chỉ nhập một chữ cái!", Toast.LENGTH_SHORT).show();
-            return;
-        }
+        if (guess.equals(currentWord.getWord())) {
+            gameWon = true;
+            correctAnswers++;
+            score += 10;
+            displayWord = new StringBuilder(currentWord.getWord().replaceAll(".", "$0 "));
+            Toast.makeText(this, "Chính xác! +10 điểm", Toast.LENGTH_SHORT).show();
 
-        char letter = guess.charAt(0);
+            tvWord.postDelayed(() -> {
+                currentQuestionIndex++;
+                nextQuestion();
+            }, 2000);
 
-        if (guessedLetters.contains(letter)) {
-            Toast.makeText(this, "Bạn đã đoán chữ này rồi!", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        guessedLetters.add(letter);
-
-        if (currentWord.getWord().contains(guess)) {
-            // Đúng
-            for (int i = 0; i < currentWord.getWord().length(); i++) {
-                if (currentWord.getWord().charAt(i) == letter) {
-                    displayWord.setCharAt(i * 2, letter);
-                }
-            }
-
-            // Kiểm tra xem đã hoàn thành từ chưa
-            if (!displayWord.toString().contains("_")) {
-                gameWon = true;
-                correctAnswers++;
-                score += 10; // Cộng 10 điểm cho mỗi từ đúng
-                Toast.makeText(this, "Chính xác! +10 điểm", Toast.LENGTH_SHORT).show();
-
-                // Chuyển sang câu tiếp theo sau 2 giây
-                tvWord.postDelayed(() -> {
-                    currentQuestionIndex++;
-                    nextQuestion();
-                }, 2000);
-
-                etGuess.setEnabled(false);
-                btnGuess.setEnabled(false);
-            }
+            etGuess.setEnabled(false);
+            btnGuess.setEnabled(false);
+            btnHint.setEnabled(false);
         } else {
-            // Sai
             wrongGuesses++;
-            score = Math.max(0, score - 2); // Trừ 2 điểm cho mỗi lần đoán sai
+            score = Math.max(0, score - 2);
             Toast.makeText(this, "Sai rồi! -2 điểm", Toast.LENGTH_SHORT).show();
 
             if (wrongGuesses >= maxWrongGuesses) {
-                Toast.makeText(this, "Bạn đã thua! Từ đúng là: " + currentWord.getWord(), Toast.LENGTH_LONG).show();
-
-                // Chuyển sang câu tiếp theo sau 3 giây
-                tvWord.postDelayed(() -> {
-                    currentQuestionIndex++;
-                    nextQuestion();
-                }, 3000);
-
-                etGuess.setEnabled(false);
-                btnGuess.setEnabled(false);
+                endGame(true); // Gọi endGame với trạng thái thua
+                return;
             }
         }
 
         updateDisplay();
         etGuess.setText("");
+    }
+
+    private void showHint() {
+        if (score <= 0) {
+            Toast.makeText(this, "Bạn không đủ điểm để xem gợi ý!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (revealedLetters.size() >= currentWord.getWord().length()) {
+            Toast.makeText(this, "Không còn chữ nào để gợi ý!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Random random = new Random();
+        int index;
+        char letter;
+
+        do {
+            index = random.nextInt(currentWord.getWord().length());
+            letter = currentWord.getWord().charAt(index);
+        } while (revealedLetters.contains(letter));
+
+        revealedLetters.add(letter);
+        for (int i = 0; i < currentWord.getWord().length(); i++) {
+            if (currentWord.getWord().charAt(i) == letter) {
+                displayWord.setCharAt(i * 2, letter);
+            }
+        }
+
+        score = Math.max(0, score - 2);
+        Toast.makeText(this, "Gợi ý: Chữ '" + letter + "' đã được mở! -2 điểm", Toast.LENGTH_SHORT).show();
+        btnHint.setEnabled(false);
+
+        if (!displayWord.toString().contains("_")) {
+            gameWon = true;
+            correctAnswers++;
+            score += 10;
+            Toast.makeText(this, "Từ đã hoàn thành! +10 điểm", Toast.LENGTH_SHORT).show();
+
+            tvWord.postDelayed(() -> {
+                currentQuestionIndex++;
+                nextQuestion();
+            }, 2000);
+
+            etGuess.setEnabled(false);
+            btnGuess.setEnabled(false);
+            btnHint.setEnabled(false);
+        }
+
+        updateDisplay();
     }
 
     private void updateDisplay() {
@@ -210,27 +232,29 @@ public class HangmanGameActivity extends AppCompatActivity {
         tvWrongGuesses.setText("Sai: " + wrongGuesses + "/" + maxWrongGuesses);
         tvQuestion.setText("Gợi ý: " + currentWord.getHint());
         tvProgress.setText("Tiến độ: " + (currentQuestionIndex + 1) + "/10");
+
+        btnHint.setEnabled(score > 0);
     }
 
-    private void endGame() {
+    private void endGame(boolean isGameOver) {
         etGuess.setEnabled(false);
         btnGuess.setEnabled(false);
+        btnHint.setEnabled(false);
 
-        String playerName = "Player_" + System.currentTimeMillis(); // Tên unique
+        String playerName = "Player_" + System.currentTimeMillis();
 
-        // Bonus điểm nếu trả lời đúng tất cả 10 câu
-        if (correctAnswers == 10) {
-            score += 50; // Bonus 50 điểm
-            Toast.makeText(this, "Xuất sắc! Hoàn thành 10/10 câu! Bonus +50 điểm", Toast.LENGTH_LONG).show();
+        if (correctAnswers == 10 && !isGameOver) {
+            score += 50;
+            Toast.makeText(this, "Chúc mừng! Hoàn thành 10/10 câu! Bonus +50 điểm", Toast.LENGTH_LONG).show();
+            tvWord.setText("CONGRATULATIONS");
+        } else {
+            Toast.makeText(this, "Trò chơi kết thúc! Điểm cuối: " + score +
+                    "\nSố câu đúng: " + correctAnswers + "/10", Toast.LENGTH_LONG).show();
+            tvWord.setText("GAME OVER");
         }
 
-        // Lưu điểm vào database
         dbHelper.addScore(playerName, score);
 
-        Toast.makeText(this, "Trò chơi kết thúc! Điểm cuối: " + score +
-                "\nSố câu đúng: " + correctAnswers + "/10", Toast.LENGTH_LONG).show();
-
-        tvWord.setText("GAME OVER");
         tvProgress.setText("Hoàn thành: " + correctAnswers + "/10");
     }
 
@@ -238,23 +262,9 @@ public class HangmanGameActivity extends AppCompatActivity {
         Intent intent = new Intent(this, GameScoreActivity.class);
         startActivity(intent);
     }
-}
 
-// Class riêng để lưu trữ từ và gợi ý
-class GameWord {
-    private String word;
-    private String hint;
-
-    public GameWord(String word, String hint) {
-        this.word = word;
-        this.hint = hint;
-    }
-
-    public String getWord() {
-        return word;
-    }
-
-    public String getHint() {
-        return hint;
+    private void openAddWordActivity() {
+        Intent intent = new Intent(this, AddWordActivity.class);
+        startActivity(intent);
     }
 }
