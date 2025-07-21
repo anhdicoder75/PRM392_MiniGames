@@ -17,7 +17,7 @@ public class ProfileActivity extends Activity {
     private static final int REQ_PICK_IMAGE = 1200;
 
     EditText edtName;
-    Button btnContinue, btnSync, btnChooseAvatar, btnAdminLogin;
+    Button btnContinue, btnSync, btnChooseAvatar;
     ImageView imgAvatar, imgFrame;
     TextView tvHello, tvPoint;
     String avatarUri = null;
@@ -32,7 +32,6 @@ public class ProfileActivity extends Activity {
         btnContinue = findViewById(R.id.btn_continue);
         btnSync = findViewById(R.id.btn_sync);
         btnChooseAvatar = findViewById(R.id.btn_choose_avatar);
-        btnAdminLogin = findViewById(R.id.btn_admin_login); // <-- thêm dòng này
         imgAvatar = findViewById(R.id.img_avatar);
         imgFrame = findViewById(R.id.img_frame);
         tvHello = findViewById(R.id.tv_hello);
@@ -86,11 +85,6 @@ public class ProfileActivity extends Activity {
         btnChooseAvatar.setOnClickListener(v -> {
             Intent pick = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             startActivityForResult(pick, REQ_PICK_IMAGE);
-        });
-
-        // Nút đăng nhập admin
-        btnAdminLogin.setOnClickListener(v -> {
-            startActivity(new Intent(this, AdminLoginActivity.class));
         });
     }
 
