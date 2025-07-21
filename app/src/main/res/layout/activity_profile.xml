@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -60,6 +59,13 @@
     <Button
         android:id="@+id/btn_sync"
         android:text="Đã có tài khoản? Đồng bộ ngay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"/>
+    <!-- Nút đăng nhập admin -->
+    <Button
+        android:id="@+id/btn_admin_login"
+        android:text="Đăng nhập Admin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"/>
