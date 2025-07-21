@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/image_game_question_result"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/image_game_result_animated_gradient"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/tvResultTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="🎉 Chính xác!"
+            android:textColor="#4CAF50"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <!-- Image of Question -->
+        <ImageView
+            android:id="@+id/ivQuestionImage"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_marginBottom="16dp"
+            android:background="#E0E0E0"
+            android:contentDescription="Question Image"
+            android:scaleType="centerCrop" />
+
+        <!-- Question Text -->
+        <TextView
+            android:id="@+id/tvQuestionText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:text="Câu hỏi gì đó sẽ hiển thị ở đây"
+            android:textColor="#212121"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <!-- Explanation -->
+        <TextView
+            android:id="@+id/tvExplanation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:text="Giải thích câu trả lời ở đây"
+            android:textColor="#616161"
+            android:textSize="16sp" />
+
+        <!-- Next Question Button -->
+        <Button
+            android:id="@+id/btnNextQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="#2196F3"
+            android:padding="12dp"
+            android:text="Tiếp theo ➡️"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+</ScrollView>

@@ -22,8 +22,14 @@ import com.example.prm392_minigames.hangmangame.db.AppDatabaseHelper;
 import com.example.prm392_minigames.models.MiniGame;
 import java.util.Arrays;
 import java.util.List;
+import java.util.*;
+import ditd.activity.ImageGamePlayActivity;
 
 public class MainActivity extends AppCompatActivity implements MiniGameAdapter.OnGameClickListener {
+
+
+
+
     ImageView imgAvatar, imgFrame;
     TextView tvWelcome, tvPoint;
     Button btnShop, btnProfile;
@@ -67,16 +73,19 @@ public class MainActivity extends AppCompatActivity implements MiniGameAdapter.O
         // });
 
         MiniGameAdapter adapter = new MiniGameAdapter(games, position -> {
-            if (position == 1) { // Memory game
-                startActivity(new Intent(this, MemoryGameActivity.class));
-            }
-            if (position == 4) {
-                startActivity(new Intent(this, HangmanMainActivity.class));
-
-            }
-
-            else {
-                Toast.makeText(this, "Chức năng game này sẽ sớm mở!", Toast.LENGTH_SHORT).show();
+            switch (position) {
+                case 1: // Memory game
+                    startActivity(new Intent(this, MemoryGameActivity.class));
+                    break;
+                case 3: // Image Guess
+                    startActivity(new Intent(this, ImageGamePlayActivity.class));
+                    break;
+                case 4: // Hangman
+                    startActivity(new Intent(this, HangmanMainActivity.class));
+                    break;
+                default:
+                    Toast.makeText(this, "Chức năng game này sẽ sớm mở!", Toast.LENGTH_SHORT).show();
+                    break;
             }
         });
 

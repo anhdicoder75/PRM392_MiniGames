@@ -21,6 +21,17 @@
 
 
 
+<!--        image guess game-->
+        <activity android:name="ditd.activity.ImageGameQuestionResultActivity"/>
+<!--        <activity android:name="ditd.activity.ImageGamePlayActivity"/>-->
+        <activity android:name="ditd.activity.ImageGameGameOverActivity"/>
+
+        
+
+
+
+
+
     <activity android:name=".hangmangame.HangmanGameActivity" />
     <activity android:name=".hangmangame.GameScoreActivity" />
     <activity android:name=".hangmangame.HangmanMainActivity" />

@@ -72,7 +72,6 @@ public class ImageGameAddQuestionsActivity extends AppCompatActivity {
         rvSelectedImages = findViewById(R.id.rvSelectedImages);
         btnPickImages = findViewById(R.id.btnPickImages);
         btnUploadAndSave = findViewById(R.id.btnUploadAndSave);
-
         //adapter for spinner
         spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, new ArrayList<>());
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -163,12 +162,14 @@ public class ImageGameAddQuestionsActivity extends AppCompatActivity {
         List<String> options = collectOptions();
         String correctAnswer = spinnerCorrectAnswer.getSelectedItem().toString();
         String hint = ((EditText) findViewById(R.id.etHint)).getText().toString().trim();
+        String questionContent = ((EditText) findViewById(R.id.etQuestionText)).getText().toString().trim();
         String explanation = ((EditText) findViewById(R.id.etExplanation)).getText().toString().trim();
         int difficulty = Integer.parseInt(((EditText) findViewById(R.id.etDifficulty)).getText().toString().trim());
         int timeLimit = Integer.parseInt(((EditText) findViewById(R.id.etTimeLimit)).getText().toString().trim());
 
         Question question = new Question();
         question.imageUrls = imageUrls;
+        question.questionText = questionContent;
         question.options = options;
         question.correctAnswer = correctAnswer;
         question.hint = hint;

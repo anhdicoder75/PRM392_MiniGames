@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Background ImageView để control scale type -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/image_game_game_over_bg_1"
+        android:scaleType="centerCrop"
+        android:contentDescription="Background" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#40000000" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="24dp">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/image_game_game_over"
+            android:contentDescription="Game Over Icon"
+            />
+
+        <TextView
+            android:id="@+id/tvGameOver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Game Over"
+            android:textColor="#FFFFFF"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:layout_marginTop="24dp"
+            android:shadowColor="#000000"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="4" />
+
+        <TextView
+            android:id="@+id/tvTryAgainMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bạn đã hết mạng rồi!"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:layout_marginTop="8dp"
+            android:shadowColor="#000000"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="2" />
+
+        <Button
+            android:id="@+id/btnRestart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chơi lại"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#FF5555"
+            android:layout_marginTop="32dp"
+            android:padding="12dp"
+            android:layout_marginBottom="8dp"
+            android:elevation="4dp" />
+
+        <Button
+            android:id="@+id/btnBackHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Về trang chính"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#888888"
+            android:padding="12dp"
+            android:elevation="4dp" />
+
+    </LinearLayout>
+</FrameLayout>

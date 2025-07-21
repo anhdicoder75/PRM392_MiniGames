@@ -20,6 +20,8 @@ public interface ImageGameQuestionDao {
     Question getRandom();
     @Query("SELECT * FROM ImageGameQuestions WHERE category_id = :categoryId ORDER BY RANDOM() LIMIT 1")
     Question getRandomByCategory(int categoryId);
+    @Query("SELECT * FROM ImageGameQuestions WHERE id = :id LIMIT 1")
+    Question getById(int id);
 
 
 
