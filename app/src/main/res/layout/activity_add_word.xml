@@ -1,0 +1,72 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@drawable/gradient_background">
+
+    <!-- Tiêu đề -->
+    <TextView
+        android:id="@+id/tvAddWordTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Thêm từ mới"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textColor="#FFFFFF"
+        android:background="#4CAF50"
+        android:padding="12dp"
+        android:layout_marginBottom="24dp"/>
+
+    <!-- Ô nhập từ -->
+    <EditText
+        android:id="@+id/etNewWord"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nhập từ (chỉ chứa chữ cái)"
+        android:inputType="textCapCharacters"
+        android:textSize="18sp"
+        android:background="@drawable/edittext_border"
+        android:padding="12dp"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Ô nhập gợi ý -->
+    <EditText
+        android:id="@+id/etNewHint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nhập gợi ý cho từ"
+        android:inputType="text"
+        android:textSize="18sp"
+        android:background="@drawable/edittext_border"
+        android:padding="12dp"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Nút thêm từ -->
+    <Button
+        android:id="@+id/btnSaveWord"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Lưu từ"
+        android:textSize="18sp"
+        android:backgroundTint="#4CAF50"
+        android:textColor="#FFFFFF"
+        android:padding="12dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/button_border"/>
+
+    <!-- Nút quay lại -->
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Quay lại"
+        android:textSize="18sp"
+        android:backgroundTint="#F44336"
+        android:textColor="#FFFFFF"
+        android:padding="12dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/button_border"/>
+
+</LinearLayout>

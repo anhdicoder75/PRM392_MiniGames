@@ -1,24 +1,29 @@
 package com.example.prm392_minigames.activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.prm392_minigames.R;
-import com.example.prm392_minigames.db.AppDatabaseHelper;
-import com.example.prm392_minigames.models.MiniGame;
 import com.example.prm392_minigames.adapters.MiniGameAdapter;
-import android.graphics.drawable.AnimationDrawable;
+import com.example.prm392_minigames.hangmangame.HangmanMainActivity;
+import com.example.prm392_minigames.hangmangame.db.AppDatabaseHelper;
+import com.example.prm392_minigames.models.MiniGame;
+import java.util.Arrays;
+import java.util.List;
 
-import namnq.activity.SoundGameLobbyActivity;
-
-import java.util.*;
-
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity implements MiniGameAdapter.OnGameClickListener {
     ImageView imgAvatar, imgFrame;
     TextView tvWelcome, tvPoint;
     Button btnShop, btnProfile;
@@ -29,15 +34,16 @@ public class MainActivity extends Activity {
     String name = "";
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        loadProfile();
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
 
         imgAvatar = findViewById(R.id.img_avatar);
         imgFrame = findViewById(R.id.img_frame);
@@ -51,36 +57,28 @@ public class MainActivity extends Activity {
         List<MiniGame> games = Arrays.asList(
                 new MiniGame(R.drawable.ic_quiz, "Trắc nghiệm kiến thức",
                         "Quiz game hỏi đáp, nhiều câu, tổng kết điểm."),
-                new MiniGame(R.drawable.ic_brush, "Scribble It!",
-                        "Bạn vẽ - tôi đoán/chê, máy random đề tài cho bạn vẽ!"),
+                new MiniGame(R.drawable.ic_brush, "Trí nhớ!", "Bạn có thể lật nhanh hơn ai!"),
                 new MiniGame(R.drawable.ic_volume, "Sound Guess", "Nghe âm thanh, chọn đáp án đúng, có bảng xếp hạng."),
                 new MiniGame(R.drawable.ic_image, "Image Guess", "Đoán hình ảnh: chọn đúng đáp án từ ảnh random."),
                 new MiniGame(R.drawable.ic_hangman, "Hangman", "Đoán chữ cái, có hint, sai nhiều thua, trừ điểm."));
-//        MiniGameAdapter adapter = new MiniGameAdapter(games, position -> {
-//            Toast.makeText(this, "Chức năng game này sẽ sớm mở!", Toast.LENGTH_SHORT).show();
-//        });
-
+        // MiniGameAdapter adapter = new MiniGameAdapter(games, position -> {
+        // Toast.makeText(this, "Chức năng game này sẽ sớm mở!",
+        // Toast.LENGTH_SHORT).show();
+        // });
 
         MiniGameAdapter adapter = new MiniGameAdapter(games, position -> {
-            switch (position) {
-                case 0:
-                    Toast.makeText(this, "Quiz game chưa mở!", Toast.LENGTH_SHORT).show();
-                    break;
-                case 1:
-                    Toast.makeText(this, "Scribble It chưa mở!", Toast.LENGTH_SHORT).show();
-                    break;
-                case 2:
-                    startActivity(new Intent(this, SoundGameLobbyActivity.class));
-                    break;
-                case 3:
-                    Toast.makeText(this, "Image Guess chưa mở!", Toast.LENGTH_SHORT).show();
-                    break;
-                case 4:
-                    Toast.makeText(this, "Hangman chưa mở!", Toast.LENGTH_SHORT).show();
-                    break;
+            if (position == 1) { // Memory game
+                startActivity(new Intent(this, MemoryGameActivity.class));
+            }
+            if (position == 4) {
+                startActivity(new Intent(this, HangmanMainActivity.class));
+
+            }
+
+            else {
+                Toast.makeText(this, "Chức năng game này sẽ sớm mở!", Toast.LENGTH_SHORT).show();
             }
         });
-
 
         rvGames.setLayoutManager(new LinearLayoutManager(this));
         rvGames.setAdapter(adapter);
@@ -90,6 +88,17 @@ public class MainActivity extends Activity {
         findViewById(R.id.fab_sync).setOnClickListener(v -> startActivity(new Intent(this, SyncActivity.class)));
 
         loadProfile();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadProfile();
+    }
+
+    @Override
+    public void onGameClick(int position) {
+        Toast.makeText(this, "Chức năng game này sẽ sớm mở!", Toast.LENGTH_SHORT).show();
     }
 
     private void loadProfile() {
@@ -108,25 +117,29 @@ public class MainActivity extends Activity {
                 imgAvatar.setImageResource(R.drawable.ic_avatar_default);
             }
             setFrameIcon(frameId);
+            c.close();
         } else {
             tvWelcome.setText("Xin chào!");
             tvPoint.setText("Điểm: 0");
             imgAvatar.setImageResource(R.drawable.ic_avatar_default);
             imgFrame.setImageResource(R.drawable.ic_frame_default);
+            if (c != null) {
+                c.close();
+            }
         }
     }
 
     private void setFrameIcon(int frameId) {
-        if (frameId == 1) {
-            imgFrame.setImageResource(R.drawable.ic_frame_gold_anim);
-            AnimationDrawable anim = (AnimationDrawable) imgFrame.getDrawable();
-            anim.start();
-        } else if (frameId == 2) {
-            imgFrame.setImageResource(R.drawable.ic_frame_rainbow_anim);
-            AnimationDrawable anim = (AnimationDrawable) imgFrame.getDrawable();
-            anim.start();
-        } else {
-            imgFrame.setImageResource(R.drawable.ic_frame_default);
+        switch (frameId) {
+            case 1:
+                imgFrame.setImageResource(R.drawable.ic_frame_gold_anim);
+                break;
+            case 2:
+                imgFrame.setImageResource(R.drawable.ic_frame_rainbow_anim);
+                break;
+            default:
+                imgFrame.setImageResource(R.drawable.ic_frame_default);
+                break;
         }
     }
 }

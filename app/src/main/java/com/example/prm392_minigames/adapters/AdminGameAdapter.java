@@ -5,19 +5,19 @@ import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.prm392_minigames.R;
-import com.example.prm392_minigames.models.MiniGame;
+import com.example.prm392_minigames.models.AdminGame;
 import java.util.List;
 
-public class MiniGameAdapter extends RecyclerView.Adapter<MiniGameAdapter.GameViewHolder> {
-
-    private final List<MiniGame> games;
-    private final OnGameClickListener listener;
+public class AdminGameAdapter extends RecyclerView.Adapter<AdminGameAdapter.GameViewHolder> {
 
     public interface OnGameClickListener {
         void onGameClick(int position);
     }
 
-    public MiniGameAdapter(List<MiniGame> games, OnGameClickListener listener) {
+    private List<AdminGame> games;
+    private OnGameClickListener listener;
+
+    public AdminGameAdapter(List<AdminGame> games, OnGameClickListener listener) {
         this.games = games;
         this.listener = listener;
     }
@@ -25,13 +25,13 @@ public class MiniGameAdapter extends RecyclerView.Adapter<MiniGameAdapter.GameVi
     @NonNull
     @Override
     public GameViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_game_card, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_admin_game_card, parent, false);
         return new GameViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull GameViewHolder holder, int position) {
-        MiniGame g = games.get(position);
+        AdminGame g = games.get(position);
         holder.imgIcon.setImageResource(g.iconRes);
         holder.tvTitle.setText(g.title);
         holder.tvDesc.setText(g.desc);
@@ -41,9 +41,7 @@ public class MiniGameAdapter extends RecyclerView.Adapter<MiniGameAdapter.GameVi
     }
 
     @Override
-    public int getItemCount() {
-        return games.size();
-    }
+    public int getItemCount() { return games.size(); }
 
     public static class GameViewHolder extends RecyclerView.ViewHolder {
         ImageView imgIcon;

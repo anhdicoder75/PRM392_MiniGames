@@ -1,0 +1,16 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="100dp"
+    android:height="100dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+    <!-- Gallows -->
+    <path
+        android:pathData="M20,90 L20,10 M20,10 L60,10 M60,10 L60,20"
+        android:strokeWidth="5"
+        android:strokeColor="#000000"/>
+    <!-- Ground -->
+    <path
+        android:pathData="M10,90 L90,90"
+        android:strokeWidth="5"
+        android:strokeColor="#000000"/>
+</vector>

@@ -1,56 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-
-    package="com.example.prm392_minigames"
-
-    xmlns:tools="http://schemas.android.com/tools">
-    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO"/>
-    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO"/>
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET" />
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.example.prm392_minigames" xmlns:tools="http://schemas.android.com/tools">
+  <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+  <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+  <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+  <uses-permission android:name="android.permission.INTERNET" />
 
 
 
 
-    <application
-        android:allowBackup="true"
-        android:dataExtractionRules="@xml/data_extraction_rules"
-        android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/Theme.PRM392_MiniGames"
-        tools:targetApi="31"
-        tools:replace="android:fullBackupContent">
-        <!-- Splash activity để kiểm tra profile -->
+  <application android:allowBackup="true" android:dataExtractionRules="@xml/data_extraction_rules" android:fullBackupContent="@xml/backup_rules" android:icon="@mipmap/ic_launcher" android:label="@string/app_name" android:roundIcon="@mipmap/ic_launcher_round" android:supportsRtl="true" android:theme="@style/Theme.PRM392_MiniGames" tools:targetApi="31" tools:replace="android:fullBackupContent">
+    <!-- Splash activity để kiểm tra profile -->
 
-        <activity android:name=".activities.SplashActivity" android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-        </activity>
-
-        <!-- Các activity khác (nên khai báo) -->
-        <activity android:name=".activities.ProfileActivity"/>
-        <activity android:name=".activities.MainActivity"/>
-        <activity android:name=".activities.SyncActivity"/>
-        <activity android:name=".activities.FrameActivity"/>
-        <activity android:name=".activities.ShopActivity"/>
+    <activity android:name=".activities.SplashActivity" android:exported="true">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+    </activity>
 
 
 
-        <!-- Các activity game (SoundGame) -->
-        <activity android:name="namnq.activity.ManageQuestionsActivity"/>
-        <activity android:name="namnq.activity.SoundGameLobbyActivity" />
-        <activity android:name="namnq.activity.SoundGamePlayActivity"/>
-        <activity android:name="namnq.activity.SoundGameCategoryActivity"/>
-        <activity android:name="namnq.activity.SoundGameAddQuestionsActivity"/>
-        <activity android:name="namnq.activity.SoundGameResultActivity"/>
+    <activity android:name=".hangmangame.HangmanGameActivity" />
+    <activity android:name=".hangmangame.GameScoreActivity" />
+    <activity android:name=".hangmangame.HangmanMainActivity" />
+    <activity android:name=".hangmangame.AddWordActivity" />
 
-
-    </application>
+    <!-- Các activity khác (nên khai báo) -->
+    <activity android:name=".activities.ProfileActivity" />
+    <activity android:name=".activities.MainActivity" />
+    <activity android:name=".activities.SyncActivity" />
+    <activity android:name=".activities.FrameActivity" />
+    <activity android:name=".activities.ShopActivity" />
+    <activity android:name=".activities.MemoryGameActivity" />
+    <activity android:name=".activities.AdminLoginActivity" />
+    <activity android:name=".activities.AdminGameCrudActivity" />
+  </application>
 
 </manifest>

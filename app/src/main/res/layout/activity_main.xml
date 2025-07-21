@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/main"
     android:background="#FFF">
 
     <!-- Card hồ sơ -->
@@ -80,7 +81,7 @@
 
                     <Button
                         android:id="@+id/btn_shop"
-                        android:text="SHOP KHUNG"
+                        android:text="SHOP"
                         android:layout_width="0dp"
                         android:layout_height="44dp"
                         android:layout_weight="1"
@@ -96,7 +97,7 @@
                         android:id="@+id/btn_profile"
                         android:text="HỒ SƠ"
                         android:layout_width="0dp"
-                        android:layout_height="44dp"
+                        android:layout_height="75dp"
                         android:layout_weight="1"
                         android:textSize="15sp"
                         android:textStyle="bold"
