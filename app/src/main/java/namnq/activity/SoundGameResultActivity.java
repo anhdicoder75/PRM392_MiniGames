@@ -27,9 +27,9 @@ public class SoundGameResultActivity extends AppCompatActivity {
         // Get data from intent
         int correctCount = getIntent().getIntExtra("correctCount", 0);
         int totalQuestions = getIntent().getIntExtra("totalQuestions", 0);
-        int incorrectCount = totalQuestions - correctCount;
 
-        // Calculate percentage
+        //calculate
+        int incorrectCount = totalQuestions - correctCount;
         double percent = ((double) correctCount / totalQuestions) * 100;
 
         // Display results

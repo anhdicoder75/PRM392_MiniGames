@@ -20,7 +20,6 @@ public class SoundGameQuestionRepository {
         soundGameQuestionDao.insertAll(questions);
     }
 
-
     public void update(SoundQuestion question) {
         soundGameQuestionDao.update(question);
     }

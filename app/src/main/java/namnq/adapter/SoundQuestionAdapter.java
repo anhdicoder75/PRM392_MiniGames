@@ -20,13 +20,11 @@ public class SoundQuestionAdapter extends RecyclerView.Adapter<SoundQuestionAdap
     private final List<SoundQuestion> questions;
     private final OnQuestionActionListener listener;
 
-    // Interface action listener
     public interface OnQuestionActionListener {
         void onUpdate(SoundQuestion question);
         void onDelete(SoundQuestion question);
     }
 
-    // Constructor mới
     public SoundQuestionAdapter(Context context, List<SoundQuestion> questions, OnQuestionActionListener listener) {
         this.context = context;
         this.questions = questions;
@@ -46,14 +44,19 @@ public class SoundQuestionAdapter extends RecyclerView.Adapter<SoundQuestionAdap
         holder.tvQuestionId.setText("ID: " + q.id);
         holder.tvAnswer.setText("Đáp án: " + q.correctAnswer);
 
-        // Long click show action dialog
-        holder.itemView.setOnLongClickListener(v -> {
-            showActionDialog(q);
-            return true;
-        });
+
+        if (listener != null) {
+            holder.itemView.setOnLongClickListener(v -> {
+                showActionDialog(q);
+                return true;
+            });
+        } else {
+            holder.itemView.setOnLongClickListener(null);
+        }
     }
 
     private void showActionDialog(SoundQuestion question) {
+        if (listener == null) return;
         String[] options = {"Cập nhật", "Xóa"};
         new AlertDialog.Builder(context)
                 .setTitle("Chọn hành động")

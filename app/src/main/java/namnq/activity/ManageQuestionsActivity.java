@@ -29,7 +29,7 @@ public class ManageQuestionsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_manage_questions); // bạn sẽ tạo layout này
+        setContentView(R.layout.activity_manage_questions);
 
         rvQuestions = findViewById(R.id.rvQuestions);
 

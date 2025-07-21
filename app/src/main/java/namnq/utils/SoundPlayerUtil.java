@@ -23,12 +23,6 @@ public class SoundPlayerUtil {
         return instance;
     }
 
-    /**
-     * Play sound file from assets folder
-     *
-     * @param context   context from Activity or Adapter
-     * @param assetPath path to file inside assets folder, e.g. "sounds/traffic_sound.mp3"
-     */
     public void playSoundFromAssets(Context context, String assetPath) {
         stopSound(); // Stop any currently playing sound
 
