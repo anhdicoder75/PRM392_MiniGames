@@ -39,8 +39,8 @@ public class ShopActivity extends Activity {
         // Danh sách frame
         List<AvatarFrame> frames = Arrays.asList(
                 new AvatarFrame(0, R.drawable.ic_frame_default, "Cơ bản", 0),
-                new AvatarFrame(1, R.drawable.ic_frame_gold_anim, "Khung vàng", 500),
-                new AvatarFrame(2, R.drawable.ic_frame_rainbow_anim, "Rainbow", 5000)
+                new AvatarFrame(1, R.drawable.ic_frame_gold_anim, "Khung vàng", 50),
+                new AvatarFrame(2, R.drawable.ic_frame_rainbow_anim, "Rainbow", 100)
         );
 
         FrameShopAdapter adapter = new FrameShopAdapter(this, frames, userPoint, currentFrameId, owned, frame -> {
