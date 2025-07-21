@@ -42,4 +42,7 @@ public interface QuestionDao {
 
     @Query("SELECT * FROM questions WHERE id = :id LIMIT 1")
     Question getQuestionById(int id);
+
+    @Query("SELECT * FROM questions WHERE categoryId = :categoryId AND isAnswered = 0 ORDER BY RANDOM() LIMIT 1")
+    Question getNextUnansweredQuestionRandom(int categoryId);
 }

@@ -12,7 +12,7 @@ import com.example.prm392_minigames.son.entities.Category;
 import com.example.prm392_minigames.son.entities.Question;
 
 
-@Database(entities = {Category.class, Question.class}, version = 1, exportSchema = false)
+@Database(entities = {Category.class, Question.class}, version = 2, exportSchema = false)
 public abstract class QuizDatabase extends RoomDatabase {
 
     private static QuizDatabase instance;

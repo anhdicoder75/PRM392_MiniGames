@@ -2,6 +2,7 @@ package com.example.prm392_minigames.son.activities;
 
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -34,6 +35,10 @@ public class AddEditQuestionActivity extends AppCompatActivity {
     private boolean isEditMode = false;
     private int categoryId;
 
+    private EditText etExplanation;
+    private EditText etClue;
+    private CheckBox cbIsHard;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +64,9 @@ public class AddEditQuestionActivity extends AppCompatActivity {
         rbOption4 = findViewById(R.id.rb_option4);
         btnSave = findViewById(R.id.btn_save);
         btnCancel = findViewById(R.id.btn_cancel);
+        etExplanation = findViewById(R.id.et_explanation);
+        etClue = findViewById(R.id.et_clue);
+        cbIsHard = findViewById(R.id.cb_is_hard);
     }
 
     private void setupViewModel() {
@@ -122,6 +130,9 @@ public class AddEditQuestionActivity extends AppCompatActivity {
         String option3 = etOption3.getText().toString().trim();
         String option4 = etOption4.getText().toString().trim();
         String pointsStr = etPoints.getText().toString().trim();
+        String explanation = etExplanation.getText().toString().trim();
+        String clue = etClue.getText().toString().trim();
+        boolean isHard = cbIsHard.isChecked();
 
         if (questionText.isEmpty()) {
             etQuestionText.setError("Question text is required");
@@ -170,7 +181,9 @@ public class AddEditQuestionActivity extends AppCompatActivity {
             Toast.makeText(this, "Question updated successfully", Toast.LENGTH_SHORT).show();
         } else {
             Question newQuestion = new Question(categoryId, questionText, option1, option2,
-                    option3, option4, correctAnswer, points);
+                    option3, option4, correctAnswer, points, explanation,
+                    clue,
+                    isHard);
             quizViewModel.insertQuestion(newQuestion);
             Toast.makeText(this, "Question added successfully", Toast.LENGTH_SHORT).show();
         }

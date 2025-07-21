@@ -221,5 +221,31 @@ public class QuizRepository {
     public Question getQuestionById(int id) {
         return questionDao.getQuestionById(id);
     }
+
+    public void getNextUnansweredQuestionRandom(int categoryId, OnQuestionLoadedListener listener) {
+        new GetNextUnansweredQuestionRandomAsyncTask(questionDao, listener).execute(categoryId);
+    }
+
+    private static class GetNextUnansweredQuestionRandomAsyncTask extends AsyncTask<Integer, Void, Question> {
+        private QuestionDao questionDao;
+        private OnQuestionLoadedListener listener;
+
+        public GetNextUnansweredQuestionRandomAsyncTask(QuestionDao questionDao, OnQuestionLoadedListener listener) {
+            this.questionDao = questionDao;
+            this.listener = listener;
+        }
+
+        @Override
+        protected Question doInBackground(Integer... categoryIds) {
+            return questionDao.getNextUnansweredQuestionRandom(categoryIds[0]);
+        }
+
+        @Override
+        protected void onPostExecute(Question question) {
+            if (listener != null) {
+                listener.onQuestionLoaded(question);
+            }
+        }
+    }
 }
 

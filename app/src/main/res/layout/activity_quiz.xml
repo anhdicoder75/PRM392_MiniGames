@@ -16,6 +16,34 @@
         android:layout_gravity="end"
         android:textColor="@android:color/holo_blue_dark" />
 
+    <TextView
+        android:id="@+id/tv_hearts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="❤️❤️❤️"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
+
+        <TextView
+            android:id="@+id/tv_timer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Time: 60s"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <Button
+            android:id="@+id/btn_clue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Clue" />
+    </LinearLayout>
+
     <LinearLayout
         android:id="@+id/question_container"
         android:layout_width="match_parent"

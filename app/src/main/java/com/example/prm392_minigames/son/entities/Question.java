@@ -22,9 +22,12 @@ public class Question {
     private int points;
     private boolean isAnswered;
     private boolean isCorrect;
+    private String explanation;
+    private String clue;
+    private boolean isHard;
 
     public Question(int categoryId, String questionText, String option1, String option2,
-                    String option3, String option4, int correctAnswer, int points) {
+                    String option3, String option4, int correctAnswer, int points, String explanation, String clue, boolean isHard) {
         this.categoryId = categoryId;
         this.questionText = questionText;
         this.option1 = option1;
@@ -35,6 +38,9 @@ public class Question {
         this.points = points;
         this.isAnswered = false;
         this.isCorrect = false;
+        this.explanation = explanation;
+        this.clue = clue;
+        this.isHard = isHard;
     }
 
     // Getters and setters
@@ -70,4 +76,13 @@ public class Question {
 
     public boolean isCorrect() { return isCorrect; }
     public void setCorrect(boolean correct) { isCorrect = correct; }
+
+    public String getExplanation() { return explanation; }
+    public void setExplanation(String explanation) { this.explanation = explanation; }
+
+    public String getClue() { return clue; }
+    public void setClue(String clue) { this.clue = clue; }
+
+    public boolean isHard() { return isHard; }
+    public void setHard(boolean hard) { isHard = hard; }
 }

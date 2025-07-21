@@ -164,13 +164,21 @@ public class SonMain extends AppCompatActivity {
         new Thread(() -> {
             try {
                 Thread.sleep(1000);
-                quizViewModel.insertQuestion(new Question(1, "What is 2 + 2?", "3", "4", "5", "6", 2, 10));
-                quizViewModel.insertQuestion(new Question(1, "What is 10 * 5?", "50", "45", "55", "60", 1, 10));
-                quizViewModel.insertQuestion(new Question(1, "What is the square root of 16?", "3", "4", "5", "6", 2, 10));
-                quizViewModel.insertQuestion(new Question(2, "What is the chemical symbol for water?", "H2O", "CO2", "O2", "H2", 1, 10));
-                quizViewModel.insertQuestion(new Question(2, "How many planets are in our solar system?", "7", "8", "9", "10", 2, 10));
-                quizViewModel.insertQuestion(new Question(3, "In which year did World War II end?", "1944", "1945", "1946", "1947", 2, 15));
-                quizViewModel.insertQuestion(new Question(3, "Who was the first President of the United States?", "Thomas Jefferson", "George Washington", "John Adams", "Benjamin Franklin", 2, 10));
+                quizViewModel.insertQuestion(new Question(1, "What is 2 + 2?", "3", "4", "5", "6", 2, 10, "2 + 2 = 4", "easy", true));
+                quizViewModel.insertQuestion(new Question(1, "What is 10 * 5?", "50", "45", "55", "60", 1, 10, "10 * 5 = 50", "easy", false));
+                quizViewModel.insertQuestion(new Question(1, "What is the square root of 16?", "3", "4", "5", "6", 2, 10, "√16 = 4", "medium", false));
+                quizViewModel.insertQuestion(new Question(2, "What is the chemical symbol for water?", "H2O", "CO2", "O2", "H2", 1, 10, "H2O is water", "easy", false));
+                quizViewModel.insertQuestion(new Question(2, "How many planets are in our solar system?", "7", "8", "9", "10", 2, 10, "There are 8 planets", "medium", false));
+                quizViewModel.insertQuestion(new Question(3, "In which year did World War II end?", "1944", "1945", "1946", "1947", 2, 15, "WWII ended in 1945", "hard", false));
+                quizViewModel.insertQuestion(new Question(3, "Who was the first President of the United States?", "Thomas Jefferson", "George Washington", "John Adams", "Benjamin Franklin", 2, 10, "It was George Washington", "medium", false));
+
+//                quizViewModel.insertQuestion(new Question(1, "What is 2 + 2?", "3", "4", "5", "6", 2, 10));
+//                quizViewModel.insertQuestion(new Question(1, "What is 10 * 5?", "50", "45", "55", "60", 1, 10));
+//                quizViewModel.insertQuestion(new Question(1, "What is the square root of 16?", "3", "4", "5", "6", 2, 10));
+//                quizViewModel.insertQuestion(new Question(2, "What is the chemical symbol for water?", "H2O", "CO2", "O2", "H2", 1, 10));
+//                quizViewModel.insertQuestion(new Question(2, "How many planets are in our solar system?", "7", "8", "9", "10", 2, 10));
+//                quizViewModel.insertQuestion(new Question(3, "In which year did World War II end?", "1944", "1945", "1946", "1947", 2, 15));
+//                quizViewModel.insertQuestion(new Question(3, "Who was the first President of the United States?", "Thomas Jefferson", "George Washington", "John Adams", "Benjamin Franklin", 2, 10));
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

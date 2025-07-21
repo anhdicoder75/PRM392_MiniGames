@@ -6,12 +6,16 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.*;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.prm392_minigames.R;
 import com.example.prm392_minigames.db.AppDatabaseHelper;
 import com.example.prm392_minigames.models.MiniGame;
 import com.example.prm392_minigames.adapters.MiniGameAdapter;
+import com.example.prm392_minigames.son.SonMain;
+
 import android.graphics.drawable.AnimationDrawable;
 
 import java.util.*;
@@ -54,7 +58,9 @@ public class MainActivity extends Activity {
                 new MiniGame(R.drawable.ic_hangman, "Hangman", "Đoán chữ cái, có hint, sai nhiều thua, trừ điểm.")
         );
         MiniGameAdapter adapter = new MiniGameAdapter(games, position -> {
-            if (position == 1) { // Memory game
+            if (position == 0) { // Memory game
+                startActivity(new Intent(this, SonMain.class));
+            } else if (position == 1) { // Memory game
                 startActivity(new Intent(this, MemoryGameActivity.class));
             } else {
                 Toast.makeText(this, "Chức năng game này sẽ sớm mở!", Toast.LENGTH_SHORT).show();
