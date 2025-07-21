@@ -93,4 +93,9 @@ public class QuizViewModel extends AndroidViewModel {
     public void getNextUnansweredQuestionRandom(int categoryId, QuizRepository.OnQuestionLoadedListener listener) {
         repository.getNextUnansweredQuestionRandom(categoryId, listener);
     }
+
+    public void updateCategoryScore(int categoryId, int points) {
+        repository.updateCategoryScore(categoryId, points);
+    }
+
 }

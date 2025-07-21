@@ -1,8 +1,10 @@
 package com.example.prm392_minigames.son.activities;
 
 import android.app.Dialog;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -13,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.prm392_minigames.R;
+import com.example.prm392_minigames.hangmangame.db.AppDatabaseHelper;
 import com.example.prm392_minigames.son.entities.Question;
 import com.example.prm392_minigames.son.repositories.QuizRepository;
 import com.example.prm392_minigames.son.viewmodels.QuizViewModel;
@@ -37,6 +40,7 @@ public class QuizActivity extends AppCompatActivity {
     private long timeLeftInMillis = 60000; // 60 seconds
     private Button btnClue;
     private boolean clueUsed = false;
+    private boolean enableClueNextQuestion = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,6 +133,17 @@ public class QuizActivity extends AppCompatActivity {
         // Setup clue button
         btnClue.setVisibility(View.VISIBLE);
         btnClue.setEnabled(!clueUsed);
+        if (enableClueNextQuestion && currentQuestion.getClue() != null && !currentQuestion.getClue().isEmpty()) {
+//            btnClue.setEnabled(true);
+            btnClue.setVisibility(View.VISIBLE);
+            btnClue.setEnabled(true);
+
+        } else {
+//            btnClue.setEnabled(false);
+            btnClue.setVisibility(View.INVISIBLE);
+        }
+        enableClueNextQuestion = false; // reset lại mỗi câu hỏi
+        clueUsed = false;
         btnClue.setOnClickListener(v -> showClue());
     }
 
@@ -157,8 +172,12 @@ public class QuizActivity extends AppCompatActivity {
         currentQuestion.setCorrect(isCorrect);
 
         if (isCorrect) {
+            int questionPoints = currentQuestion.getPoints();
             totalScore += currentQuestion.getPoints();
             correctAnswers++;
+
+            updateCategoryScore(categoryId, questionPoints);
+            updateUserPoints(questionPoints);
 
             // Check for rewards
             if (currentQuestion.isHard()) {
@@ -326,6 +345,7 @@ public class QuizActivity extends AppCompatActivity {
 
         // Random reward
         int reward = (int) (Math.random() * 3);
+//        int reward = 2;
         switch (reward) {
             case 0:
                 hearts++;
@@ -336,6 +356,7 @@ public class QuizActivity extends AppCompatActivity {
                 tvMessage.setText("Amazing! You got 30 extra seconds! ⏰");
                 break;
             case 2:
+                enableClueNextQuestion = true;
                 tvMessage.setText("Excellent! You get help for the next question! 💡");
                 break;
         }
@@ -420,7 +441,9 @@ public class QuizActivity extends AppCompatActivity {
     private void showClue() {
         if (!clueUsed && currentQuestion.getClue() != null && !currentQuestion.getClue().isEmpty()) {
             clueUsed = true;
-            btnClue.setEnabled(false);
+//            btnClue.setEnabled(false);
+
+            btnClue.setVisibility(View.INVISIBLE);
 
             Dialog dialog = new Dialog(this);
             dialog.setContentView(R.layout.dialog_clue);
@@ -470,6 +493,33 @@ public class QuizActivity extends AppCompatActivity {
         });
 
         dialog.show();
+    }
+
+    private void updateCategoryScore(int categoryId, int points) {
+        quizViewModel.updateCategoryScore(categoryId, points);
+    }
+
+    // Thêm method mới để cập nhật điểm user
+    private void updateUserPoints(int points) {
+        AppDatabaseHelper dbHelper = new AppDatabaseHelper(this);
+
+        // Lấy điểm hiện tại
+        Cursor cursor = dbHelper.getProfile();
+        int currentPoints = 0;
+        if (cursor.moveToFirst()) {
+            int pointIndex = cursor.getColumnIndex(AppDatabaseHelper.COL_POINT);
+            if (pointIndex != -1) {
+                currentPoints = cursor.getInt(pointIndex);
+            } else {
+                // Log lỗi nếu column không tồn tại
+                Log.e("QuizActivity", "COL_POINT column not found in profile cursor!");
+            }
+//            currentPoints = cursor.getInt(cursor.getColumnIndex(AppDatabaseHelper.COL_POINT));
+        }
+        cursor.close();
+
+        // Cập nhật điểm mới
+        dbHelper.updatePoint(currentPoints + points);
     }
 
     @Override

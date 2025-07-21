@@ -247,5 +247,26 @@ public class QuizRepository {
             }
         }
     }
+
+    public void updateCategoryScore(int categoryId, int points) {
+        new UpdateCategoryScoreAsyncTask(categoryDao).execute(categoryId, points);
+    }
+
+    // Thêm AsyncTask mới
+    private static class UpdateCategoryScoreAsyncTask extends AsyncTask<Integer, Void, Void> {
+        private CategoryDao categoryDao;
+
+        private UpdateCategoryScoreAsyncTask(CategoryDao categoryDao) {
+            this.categoryDao = categoryDao;
+        }
+
+        @Override
+        protected Void doInBackground(Integer... params) {
+            int categoryId = params[0];
+            int points = params[1];
+            categoryDao.updateCategoryScore(categoryId, points);
+            return null;
+        }
+    }
 }
 

@@ -39,4 +39,7 @@ public interface CategoryDao {
 
     @Query("SELECT * FROM categories WHERE id = :categoryId")
     Category getCategoryById(int categoryId);
+
+    @Query("UPDATE categories SET userScore = userScore + :points WHERE id = :categoryId")
+    void updateCategoryScore(int categoryId, int points);
 }
