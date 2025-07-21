@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.recyclerview.widget.*;
 import com.example.prm392_minigames.R;
 import com.example.prm392_minigames.adapters.AdminGameAdapter;
+import com.example.prm392_minigames.hangmangame.HangmanMainActivity;
 import com.example.prm392_minigames.models.AdminGame;
 import com.example.prm392_minigames.son.AdminMain;
 
@@ -43,7 +44,7 @@ public class AdminGameCrudActivity extends Activity {
                     startActivity(new Intent(this, AdminImageCrudActivity.class));
                     break;
                 case 3: // Hangman
-                    startActivity(new Intent(this, AdminHangmanCrudActivity.class));
+                    startActivity(new Intent(this, HangmanMainActivity.class));
                     break;
             }
         });

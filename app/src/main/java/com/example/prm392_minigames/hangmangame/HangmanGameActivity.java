@@ -1,6 +1,7 @@
 package com.example.prm392_minigames.hangmangame;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,12 +13,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.prm392_minigames.R;
 
+import com.example.prm392_minigames.hangmangame.db.AppDatabaseHelper;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class HangmanGameActivity extends AppCompatActivity {
     private GameDatabaseHelper dbHelper;
+    private AppDatabaseHelper appDbHelper;
     private TextView tvWord, tvScore, tvWrongGuesses, tvQuestion, tvProgress;
     private EditText etGuess;
     private Button btnGuess, btnNewGame, btnScores, btnHint;
@@ -41,6 +45,7 @@ public class HangmanGameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_hangman_game);
 
         dbHelper = new GameDatabaseHelper(this);
+        appDbHelper = new AppDatabaseHelper(this);
         initializeViews();
         setupGameWords();
         startNewGame();
@@ -97,6 +102,8 @@ public class HangmanGameActivity extends AppCompatActivity {
         score = 0;
         currentQuestionIndex = 0;
         correctAnswers = 0;
+        // ✅ QUAN TRỌNG: Reset wrongGuesses chỉ khi bắt đầu game mới hoàn toàn
+        wrongGuesses = 0;
         wordsList = dbHelper.getAllWords();
 
         if (wordsList.isEmpty()) {
@@ -127,8 +134,10 @@ public class HangmanGameActivity extends AppCompatActivity {
         currentWord = wordsList.get(currentQuestionIndex);
         displayWord = new StringBuilder();
         revealedLetters = new ArrayList<>();
-        wrongGuesses = 0;
         gameWon = false;
+
+        // ✅ BỎ DÒNG NÀY ĐI: wrongGuesses = 0;
+        // Không reset wrongGuesses ở đây nữa, để nó tích lũy xuyên suốt game
 
         for (int i = 0; i < currentWord.getWord().length(); i++) {
             displayWord.append("_ ");
@@ -157,26 +166,30 @@ public class HangmanGameActivity extends AppCompatActivity {
             displayWord = new StringBuilder(currentWord.getWord().replaceAll(".", "$0 "));
             Toast.makeText(this, "Chính xác! +10 điểm", Toast.LENGTH_SHORT).show();
 
-            tvWord.postDelayed(() -> {
-                currentQuestionIndex++;
-                nextQuestion();
-            }, 2000);
-
+            // ✅ Khóa input ngay sau khi trả lời đúng
             etGuess.setEnabled(false);
             btnGuess.setEnabled(false);
             btnHint.setEnabled(false);
-        } else {
-            wrongGuesses++;
-            score = Math.max(0, score - 2);
-            Toast.makeText(this, "Sai rồi! -2 điểm", Toast.LENGTH_SHORT).show();
-            updateDisplay(); // Update display before checking game over
 
-            if (wrongGuesses == maxWrongGuesses) {
-                tvWord.postDelayed(() -> endGame(true), 2000); // Delay game over to show hangman_6
+            updateDisplay();
+
+            tvWord.postDelayed(() -> {
+                currentQuestionIndex++;
+                nextQuestion(); // Không reset wrongGuesses nữa
+            }, 2000);
+            return;
+        } else {
+            wrongGuesses++; // ✅ Tích lũy số lần sai xuyên suốt game
+            score = Math.max(0, score - 5);
+            Toast.makeText(this, "Sai rồi! -5 điểm", Toast.LENGTH_SHORT).show();
+            updateDisplay();
+
+            if (wrongGuesses >= maxWrongGuesses) {
+                // ✅ Game over khi đạt giới hạn sai
+                tvWord.postDelayed(() -> endGame(true), 2000);
                 etGuess.setEnabled(false);
                 btnGuess.setEnabled(false);
                 btnHint.setEnabled(false);
-                return;
             }
         }
 
@@ -210,8 +223,8 @@ public class HangmanGameActivity extends AppCompatActivity {
             }
         }
 
-        score = Math.max(0, score - 2);
-        Toast.makeText(this, "Gợi ý: Chữ '" + letter + "' đã được mở! -2 điểm", Toast.LENGTH_SHORT).show();
+        score = Math.max(0, score - 5);
+        Toast.makeText(this, "Gợi ý: Chữ '" + letter + "' đã được mở! -5 điểm", Toast.LENGTH_SHORT).show();
         btnHint.setEnabled(false);
 
         if (!displayWord.toString().contains("_")) {
@@ -220,14 +233,15 @@ public class HangmanGameActivity extends AppCompatActivity {
             score += 10;
             Toast.makeText(this, "Từ đã hoàn thành! +10 điểm", Toast.LENGTH_SHORT).show();
 
+            // ✅ Khóa input sau khi thắng nhờ gợi ý
+            etGuess.setEnabled(false);
+            btnGuess.setEnabled(false);
+            btnHint.setEnabled(false);
+
             tvWord.postDelayed(() -> {
                 currentQuestionIndex++;
                 nextQuestion();
             }, 2000);
-
-            etGuess.setEnabled(false);
-            btnGuess.setEnabled(false);
-            btnHint.setEnabled(false);
         }
 
         updateDisplay();
@@ -261,11 +275,18 @@ public class HangmanGameActivity extends AppCompatActivity {
             Toast.makeText(this, "Chúc mừng! Hoàn thành 10/10 câu! Bonus +50 điểm", Toast.LENGTH_LONG).show();
             tvWord.setText("CONGRATULATIONS");
             dbHelper.addScore(playerName, score);
-        } else if (isGameOver && wrongGuesses == maxWrongGuesses) {
+
+            // ✅ Cộng điểm vào profile chung
+            updateProfilePoints(score);
+
+        } else if (isGameOver && wrongGuesses >= maxWrongGuesses) {
             Toast.makeText(this, "Trò chơi kết thúc! Điểm cuối: " + score +
                     "\nSố câu đúng: " + correctAnswers + "/10", Toast.LENGTH_LONG).show();
             tvWord.setText("GAME OVER");
             dbHelper.addScore(playerName, score);
+
+            // ✅ Cộng điểm vào profile chung (dù game over vẫn được điểm)
+            updateProfilePoints(score);
         }
 
         tvProgress.setText("Hoàn thành: " + correctAnswers + "/10");
@@ -279,5 +300,34 @@ public class HangmanGameActivity extends AppCompatActivity {
     private void openAddWordActivity() {
         Intent intent = new Intent(this, AddWordActivity.class);
         startActivity(intent);
+    }
+
+    // ✅ Phương thức cộng điểm vào profile chung
+    private void updateProfilePoints(int earnedPoints) {
+        try {
+            // Lấy điểm hiện tại từ profile
+            Cursor cursor = appDbHelper.getProfile();
+            int currentPoints = 0;
+
+            if (cursor != null && cursor.moveToFirst()) {
+                int pointIndex = cursor.getColumnIndex(AppDatabaseHelper.COL_POINT);
+                if (pointIndex >= 0) {
+                    currentPoints = cursor.getInt(pointIndex);
+                }
+                cursor.close();
+            }
+
+            // Cập nhật điểm mới
+            int newTotalPoints = currentPoints + earnedPoints;
+            appDbHelper.updatePoint(newTotalPoints);
+
+            Toast.makeText(this, "+" + earnedPoints + " điểm đã được thêm vào profile!",
+                    Toast.LENGTH_SHORT).show();
+
+        } catch (Exception e) {
+            // Xử lý lỗi nếu chưa có profile
+            Toast.makeText(this, "Không thể cập nhật điểm vào profile",
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 }
