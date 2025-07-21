@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.widget.*;
 import com.example.prm392_minigames.R;
 import com.example.prm392_minigames.models.AvatarFrame;
-import com.example.prm392_minigames.db.AppDatabaseHelper;
+import com.example.prm392_minigames.hangmangame.db.AppDatabaseHelper;
 import android.graphics.drawable.AnimationDrawable;
 
 import java.util.*;

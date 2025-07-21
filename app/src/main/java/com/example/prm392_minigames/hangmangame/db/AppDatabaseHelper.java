@@ -1,4 +1,4 @@
-package com.example.prm392_minigames.db;
+package com.example.prm392_minigames.hangmangame.db;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

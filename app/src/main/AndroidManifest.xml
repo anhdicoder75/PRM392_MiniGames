@@ -70,6 +70,13 @@
             android:name=".son.activities.AddEditQuestionActivity"
             android:exported="false"
             android:parentActivityName=".son.activities.AdminQuestionActivity" />
+
+
+        <activity android:name=".hangmangame.HangmanGameActivity" />
+        <activity android:name=".hangmangame.GameScoreActivity" />
+        <activity android:name=".hangmangame.HangmanMainActivity" />
+        <activity android:name=".hangmangame.AddWordActivity" />
+
         <!-- Các activity khác (nên khai báo) -->
         <activity android:name=".activities.ProfileActivity"/>
         <activity android:name=".activities.MainActivity"/>
@@ -77,7 +84,8 @@
         <activity android:name=".activities.FrameActivity"/>
         <activity android:name=".activities.ShopActivity"/>
         <activity android:name=".activities.MemoryGameActivity"/>
-
+        <activity android:name=".activities.AdminLoginActivity"/>
+        <activity android:name=".activities.AdminGameCrudActivity"/>
     </application>
 
 </manifest>

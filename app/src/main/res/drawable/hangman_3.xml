@@ -1,0 +1,33 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="100dp"
+    android:height="100dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+    <!-- Gallows -->
+    <path
+        android:pathData="M20,90 L20,10 M20,10 L60,10 M60,10 L60,20"
+        android:strokeWidth="5"
+        android:strokeColor="#000000"/>
+    <!-- Head -->
+    <path
+        android:pathData="M60,30 A10,10 0 1,0 60,50 A10,10 0 1,0 60,30"
+        android:strokeWidth="5"
+        android:strokeColor="#000000"/>
+    <!-- Torso -->
+    <path
+        android:pathData="M60,55 L60,75"
+        android:strokeWidth="5"
+        android:strokeColor="#000000"/>
+    <!-- Left Arm (right side, starting from torso) -->
+    <path
+        android:pathData="M60,65 L75,60"
+    android:strokeWidth="5"
+    android:strokeColor="#000000"/>
+    <!-- Right Arm (left side, symmetric) -->
+
+
+    <path
+        android:pathData="M10,90 L90,90"
+        android:strokeWidth="5"
+        android:strokeColor="#000000"/>
+</vector>
