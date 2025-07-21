@@ -1,17 +1,10 @@
 package com.example.prm392_minigames.adapters;
 
-import android.content.Context;
-import android.content.Intent;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.view.*;
+import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.prm392_minigames.R;
-import com.example.prm392_minigames.hangmangame.HangmanMainActivity;
 import com.example.prm392_minigames.models.MiniGame;
 import java.util.List;
 
@@ -19,14 +12,12 @@ public class MiniGameAdapter extends RecyclerView.Adapter<MiniGameAdapter.GameVi
 
     private final List<MiniGame> games;
     private final OnGameClickListener listener;
-    private final Context context;
 
     public interface OnGameClickListener {
         void onGameClick(int position);
     }
 
-    public MiniGameAdapter(Context context, List<MiniGame> games, OnGameClickListener listener) {
-        this.context = context;
+    public MiniGameAdapter(List<MiniGame> games, OnGameClickListener listener) {
         this.games = games;
         this.listener = listener;
     }
@@ -45,14 +36,7 @@ public class MiniGameAdapter extends RecyclerView.Adapter<MiniGameAdapter.GameVi
         holder.tvTitle.setText(g.title);
         holder.tvDesc.setText(g.desc);
         holder.btnGame.setOnClickListener(v -> {
-            if (g.title.equals("Hangman")) {
-                Intent intent = new Intent(context, HangmanMainActivity.class);
-                context.startActivity(intent);
-            } else {
-                if (listener != null) {
-                    listener.onGameClick(position);
-                }
-            }
+            if (listener != null) listener.onGameClick(position);
         });
     }
 
@@ -65,7 +49,6 @@ public class MiniGameAdapter extends RecyclerView.Adapter<MiniGameAdapter.GameVi
         ImageView imgIcon;
         TextView tvTitle, tvDesc;
         Button btnGame;
-
         public GameViewHolder(View v) {
             super(v);
             imgIcon = v.findViewById(R.id.img_icon);

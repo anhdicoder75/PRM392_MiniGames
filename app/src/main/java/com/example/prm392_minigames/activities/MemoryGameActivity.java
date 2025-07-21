@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.*;
 import com.example.prm392_minigames.R;
 import com.example.prm392_minigames.models.MemoryCard;
 import com.example.prm392_minigames.adapters.MemoryCardAdapter;
-import com.example.prm392_minigames.db.AppDatabaseHelper;
+import com.example.prm392_minigames.hangmangame.db.AppDatabaseHelper;
 import java.util.*;
 
 public class MemoryGameActivity extends AppCompatActivity {

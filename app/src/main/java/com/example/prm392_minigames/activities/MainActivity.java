@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.prm392_minigames.R;
 import com.example.prm392_minigames.adapters.MiniGameAdapter;
+import com.example.prm392_minigames.hangmangame.HangmanMainActivity;
 import com.example.prm392_minigames.hangmangame.db.AppDatabaseHelper;
 import com.example.prm392_minigames.models.MiniGame;
 import java.util.Arrays;
@@ -63,7 +64,12 @@ public class MainActivity extends AppCompatActivity implements MiniGameAdapter.O
         MiniGameAdapter adapter = new MiniGameAdapter(games, position -> {
             if (position == 1) { // Memory game
                 startActivity(new Intent(this, MemoryGameActivity.class));
-            } else {
+            } if(position == 4){
+                startActivity(new Intent(this, HangmanMainActivity.class));
+
+            }
+
+            else {
                 Toast.makeText(this, "Chức năng game này sẽ sớm mở!", Toast.LENGTH_SHORT).show();
             }
         });
