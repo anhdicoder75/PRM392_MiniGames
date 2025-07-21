@@ -7,7 +7,7 @@ import android.widget.Toast;
 import androidx.recyclerview.widget.*;
 import com.example.prm392_minigames.R;
 import com.example.prm392_minigames.models.AvatarFrame;
-import com.example.prm392_minigames.db.AppDatabaseHelper;
+import com.example.prm392_minigames.hangmangame.db.AppDatabaseHelper;
 import com.example.prm392_minigames.adapters.FrameShopAdapter;
 
 import java.util.*;

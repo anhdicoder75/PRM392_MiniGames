@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#F5F5F5">
+
+    <!-- Tiêu đề -->
+    <TextView
+        android:id="@+id/tvScoreTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Bảng điểm cao"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Thông báo không có điểm -->
+    <TextView
+        android:id="@+id/tvNoScores"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Chưa có điểm số nào!"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Danh sách điểm -->
+    <ListView
+        android:id="@+id/lvScores"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Nút quay lại -->
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Quay lại"
+        android:textSize="18sp"
+        android:backgroundTint="#2196F3"
+        android:layout_marginBottom="8dp"/>
+
+    <!-- Nút xóa tất cả điểm -->
+    <Button
+        android:id="@+id/btnClearScores"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Xóa tất cả điểm"
+        android:textSize="18sp"
+        android:backgroundTint="#F44336"/>
+
+</LinearLayout>

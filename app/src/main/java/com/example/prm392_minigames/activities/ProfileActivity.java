@@ -11,7 +11,7 @@ import androidx.annotation.Nullable;
 import android.graphics.drawable.AnimationDrawable;
 
 import com.example.prm392_minigames.R;
-import com.example.prm392_minigames.db.AppDatabaseHelper;
+import com.example.prm392_minigames.hangmangame.db.AppDatabaseHelper;
 
 public class ProfileActivity extends Activity {
     private static final int REQ_PICK_IMAGE = 1200;

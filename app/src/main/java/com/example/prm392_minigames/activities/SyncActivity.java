@@ -9,7 +9,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.prm392_minigames.R;
-import com.example.prm392_minigames.db.AppDatabaseHelper;
+import com.example.prm392_minigames.hangmangame.db.AppDatabaseHelper;
 import com.google.android.gms.auth.api.signin.*;
 import com.google.android.gms.tasks.*;
 import com.google.android.gms.common.api.ApiException;

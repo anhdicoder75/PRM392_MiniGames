@@ -31,6 +31,13 @@
             </intent-filter>
         </activity>
 
+
+
+        <activity android:name=".hangmangame.HangmanGameActivity" />
+        <activity android:name=".hangmangame.GameScoreActivity" />
+        <activity android:name=".hangmangame.HangmanMainActivity" />
+        <activity android:name=".hangmangame.AddWordActivity" />
+
         <!-- Các activity khác (nên khai báo) -->
         <activity android:name=".activities.ProfileActivity"/>
         <activity android:name=".activities.MainActivity"/>
