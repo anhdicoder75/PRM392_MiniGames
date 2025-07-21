@@ -31,4 +31,10 @@ public interface SoundGameCategoryDao {
 
     @Update
     void update(SoundCategory category);
+
+    @Query("SELECT * FROM SoundCategories WHERE id = :categoryId LIMIT 1")
+    SoundCategory getCategoryById(int categoryId);
+
+    @Query("SELECT * FROM SoundCategories WHERE name = :name LIMIT 1")
+    SoundCategory getCategoryByName(String name);
 }

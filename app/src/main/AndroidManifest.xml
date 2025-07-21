@@ -4,8 +4,10 @@
     package="com.example.prm392_minigames"
 
     xmlns:tools="http://schemas.android.com/tools">
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO"/>
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO"/>
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
 
@@ -41,9 +43,12 @@
 
 
         <!-- Các activity game (SoundGame) -->
-        <activity android:name="com.namnq.activity.SoundGamePlayActivity"/>
-        <activity android:name="com.namnq.activity.SoundGameCategoryActivity"/>
-        <activity android:name="com.namnq.activity.SoundGameAddQuestionsActivity"/>
+        <activity android:name="namnq.activity.ManageQuestionsActivity"/>
+        <activity android:name="namnq.activity.SoundGameLobbyActivity" />
+        <activity android:name="namnq.activity.SoundGamePlayActivity"/>
+        <activity android:name="namnq.activity.SoundGameCategoryActivity"/>
+        <activity android:name="namnq.activity.SoundGameAddQuestionsActivity"/>
+        <activity android:name="namnq.activity.SoundGameResultActivity"/>
 
 
     </application>

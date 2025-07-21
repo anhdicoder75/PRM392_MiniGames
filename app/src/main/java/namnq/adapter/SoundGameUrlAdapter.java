@@ -1,7 +1,6 @@
 package namnq.adapter;
 
 import android.content.Context;
-import android.media.MediaPlayer;
 import android.view.*;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,57 +10,45 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.prm392_minigames.R;
 
-import java.io.IOException;
 import java.util.List;
+
+import namnq.utils.SoundPlayerUtil;
 
 public class SoundGameUrlAdapter extends RecyclerView.Adapter<SoundGameUrlAdapter.SoundViewHolder> {
 
-    private final List<String> soundUrls;
+    private final List<String> soundPaths;
     private final Context context;
-    private MediaPlayer mediaPlayer;
 
-    public SoundGameUrlAdapter(Context context, List<String> soundUrls) {
+    public SoundGameUrlAdapter(Context context, List<String> soundPaths) {
         this.context = context;
-        this.soundUrls = soundUrls;
+        this.soundPaths = soundPaths;
     }
 
     @NonNull
     @Override
     public SoundViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context)
-                .inflate(R.layout.item_selected_sound, parent, false); // Dùng lại layout sound
+                .inflate(R.layout.item_selected_sound, parent, false);
         return new SoundViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull SoundViewHolder holder, int position) {
-        String url = soundUrls.get(position);
+        String assetPath = soundPaths.get(position);
 
-        String name = url.substring(url.lastIndexOf('/') + 1); // Lấy tên file từ URL
+        String name = assetPath.substring(assetPath.lastIndexOf('/') + 1);
         holder.tvSoundName.setText(name);
-        holder.btnPlaySound.setOnClickListener(v -> playSoundFromUrl(url));
+
+        holder.btnPlaySound.setOnClickListener(v -> playSoundFromAssets(assetPath));
     }
 
-    private void playSoundFromUrl(String url) {
-        try {
-            if (mediaPlayer != null) {
-                mediaPlayer.stop();
-                mediaPlayer.release();
-            }
-
-            mediaPlayer = new MediaPlayer();
-            mediaPlayer.setDataSource(url);
-            mediaPlayer.prepare();
-            mediaPlayer.start();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void playSoundFromAssets(String assetPath) {
+        SoundPlayerUtil.getInstance().playSoundFromAssets(context, assetPath);
     }
 
     @Override
     public int getItemCount() {
-        return soundUrls.size();
+        return soundPaths.size();
     }
 
     public static class SoundViewHolder extends RecyclerView.ViewHolder {

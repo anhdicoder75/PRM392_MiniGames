@@ -14,7 +14,7 @@ import com.example.prm392_minigames.models.MiniGame;
 import com.example.prm392_minigames.adapters.MiniGameAdapter;
 import android.graphics.drawable.AnimationDrawable;
 
-import namnq.activity.SoundGamePlayActivity;
+import namnq.activity.SoundGameLobbyActivity;
 
 import java.util.*;
 
@@ -70,7 +70,7 @@ public class MainActivity extends Activity {
                     Toast.makeText(this, "Scribble It chưa mở!", Toast.LENGTH_SHORT).show();
                     break;
                 case 2:
-                    startActivity(new Intent(this, SoundGamePlayActivity.class));
+                    startActivity(new Intent(this, SoundGameLobbyActivity.class));
                     break;
                 case 3:
                     Toast.makeText(this, "Image Guess chưa mở!", Toast.LENGTH_SHORT).show();

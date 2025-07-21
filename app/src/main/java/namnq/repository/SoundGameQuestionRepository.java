@@ -20,6 +20,15 @@ public class SoundGameQuestionRepository {
         soundGameQuestionDao.insertAll(questions);
     }
 
+
+    public void update(SoundQuestion question) {
+        soundGameQuestionDao.update(question);
+    }
+
+    public void delete(SoundQuestion question) {
+        soundGameQuestionDao.delete(question);
+    }
+
     public SoundQuestion getRandom() {
         return soundGameQuestionDao.getRandom();
     }
@@ -27,4 +36,7 @@ public class SoundGameQuestionRepository {
     public SoundQuestion getRandomByCategory(int categoryId) {
         return soundGameQuestionDao.getRandomByCategory(categoryId);
     }
+
+
+
 }
