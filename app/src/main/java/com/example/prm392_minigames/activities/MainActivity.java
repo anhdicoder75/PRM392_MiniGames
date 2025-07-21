@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.widget.*;
+
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,8 +17,12 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.prm392_minigames.R;
 import com.example.prm392_minigames.adapters.MiniGameAdapter;
+import com.example.prm392_minigames.son.SonMain;
+
+import android.graphics.drawable.AnimationDrawable;
 import com.example.prm392_minigames.hangmangame.HangmanMainActivity;
 import com.example.prm392_minigames.hangmangame.db.AppDatabaseHelper;
 import com.example.prm392_minigames.models.MiniGame;
@@ -67,7 +73,9 @@ public class MainActivity extends AppCompatActivity implements MiniGameAdapter.O
         // });
 
         MiniGameAdapter adapter = new MiniGameAdapter(games, position -> {
-            if (position == 1) { // Memory game
+            if (position == 0) { // Memory game
+                startActivity(new Intent(this, SonMain.class));
+            } else if (position == 1) { // Memory game
                 startActivity(new Intent(this, MemoryGameActivity.class));
             }
             if (position == 4) {

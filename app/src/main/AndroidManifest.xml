@@ -19,6 +19,45 @@
       </intent-filter>
     </activity>
 
+        <activity
+            android:name=".son.SonMain"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+
+        <activity
+            android:name=".son.activities.QuizActivity"
+            android:exported="false"
+            android:parentActivityName=".son.SonMain" />
+
+        <activity
+            android:name=".son.activities.ScoreActivity"
+            android:exported="false"
+            android:parentActivityName=".son.SonMain" />
+
+        <activity
+            android:name=".son.AdminMain"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+
+        <activity
+            android:name=".son.activities.AdminCategoryActivity"
+            android:exported="false"
+            android:parentActivityName=".son.AdminMain" />
+
+        <activity
+            android:name=".son.activities.AdminQuestionActivity"
+            android:exported="false"
+            android:parentActivityName=".son.AdminMain" />
+
+        <activity
+            android:name=".son.activities.AddEditCategoryActivity"
+            android:exported="false"
+            android:parentActivityName=".son.activities.AdminCategoryActivity" />
+
+        <activity
+            android:name=".son.activities.AddEditQuestionActivity"
+            android:exported="false"
+            android:parentActivityName=".son.activities.AdminQuestionActivity" />
 
 
     <activity android:name=".hangmangame.HangmanGameActivity" />

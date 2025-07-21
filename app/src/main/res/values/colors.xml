@@ -10,4 +10,30 @@
     <color name="rainbow_green">#4CAF50</color>
     <color name="rainbow_blue">#2196F3</color>
     <color name="rainbow_purple">#9C27B0</color>
+        <!-- Primary Colors -->
+    <color name="primary_color">#2196F3</color>
+    <color name="primary_dark">#1976D2</color>
+    <color name="primary_light">#BBDEFB</color>
+
+    <!-- Accent Colors -->
+    <color name="accent_color">#FF9800</color>
+    <color name="accent_dark">#F57C00</color>
+
+    <!-- Background Colors -->
+    <color name="background_color">#FAFAFA</color>
+    <color name="surface_color">#FFFFFF</color>
+
+    <!-- Text Colors -->
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#757575</color>
+
+    <!-- Status Colors -->
+    <color name="success_color">#4CAF50</color>
+    <color name="error_color">#F44336</color>
+    <color name="warning_color">#FF9800</color>
+
+    <!-- Button Colors -->
+    <color name="button_primary">#2196F3</color>
+    <color name="button_secondary">#E0E0E0</color>
+    <color name="button_danger">#F44336</color>
 </resources>
