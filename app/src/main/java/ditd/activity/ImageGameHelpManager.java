@@ -30,7 +30,7 @@ public class ImageGameHelpManager {
         return score;
     }
     public void increaseScore() {
-        score++;
+        score = score +50;
     }
     public boolean loseLife() {
         if (lives > 0) {

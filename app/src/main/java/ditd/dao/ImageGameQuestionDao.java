@@ -1,6 +1,7 @@
 package ditd.dao;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -22,6 +23,9 @@ public interface ImageGameQuestionDao {
     Question getRandomByCategory(int categoryId);
     @Query("SELECT * FROM ImageGameQuestions WHERE id = :id LIMIT 1")
     Question getById(int id);
+
+    @Delete
+    void delete(Question question);
 
 
 
