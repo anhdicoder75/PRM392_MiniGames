@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements MiniGameAdapter.O
             switch (position) {
                 case 0:
                     // Quiz Game - chưa có
-                    Toast.makeText(this, "Chức năng game này sẽ sớm mở!", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(this, SonMain.class));
                     break;
                 case 1:
                     startActivity(new Intent(this, MemoryGameActivity.class));
