@@ -3,9 +3,12 @@ package namnq.activity;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
+import android.database.Cursor;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.prm392_minigames.hangmangame.db.AppDatabaseHelper;
 import com.example.prm392_minigames.R;
 
 public class SoundGameResultActivity extends AppCompatActivity {
@@ -28,16 +31,29 @@ public class SoundGameResultActivity extends AppCompatActivity {
         int correctCount = getIntent().getIntExtra("correctCount", 0);
         int totalQuestions = getIntent().getIntExtra("totalQuestions", 0);
 
-        //calculate
+        // Calculate
         int incorrectCount = totalQuestions - correctCount;
+        int gameScore = correctCount * 50;
         double percent = ((double) correctCount / totalQuestions) * 100;
 
-        // Display results
+        // Display result
         tvResult.setText("✅ Bạn trả lời đúng: " + correctCount + " / " + totalQuestions);
         tvSummary.setText("❌ Sai: " + incorrectCount + " câu");
-        tvScorePercent.setText("🏆 Điểm: " + String.format("%.2f", percent) + " điểm");
+        tvScorePercent.setText("🏆 Điểm lượt chơi: " + gameScore + " điểm (" + String.format("%.2f", percent) + "%)");
 
-        // Button back to lobby
+        // Cộng điểm vào profile
+        AppDatabaseHelper dbHelper = new AppDatabaseHelper(this);
+        Cursor cursor = dbHelper.getProfile();
+
+        if (cursor != null && cursor.moveToFirst()) {
+            int currentTotalPoint = cursor.getInt(cursor.getColumnIndexOrThrow("point"));
+            int newTotalPoint = currentTotalPoint + gameScore;
+            dbHelper.updatePoint(newTotalPoint);
+
+            tvScorePercent.append("\n🎯 Tổng điểm tích lũy mới: " + newTotalPoint + " điểm");
+        }
+
+        // Back button
         btnBack.setOnClickListener(v -> finish());
     }
 }

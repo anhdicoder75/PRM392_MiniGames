@@ -20,6 +20,8 @@ import java.util.List;
 import java.util.Collections;
 import java.util.concurrent.Executors;
 
+import com.example.prm392_minigames.hangmangame.db.AppDatabaseHelper;
+
 import namnq.adapter.SoundGameUrlAdapter;
 import namnq.dao.SoundGameCategoryDao;
 import namnq.dao.SoundGameQuestionDao;
@@ -215,6 +217,10 @@ public class SoundGamePlayActivity extends AppCompatActivity {
         if (currentQuestionIndex < questionList.size()) {
             showQuestion();
         } else {
+            // ✅ Tăng điểm vào profile trước khi chuyển sang kết quả
+            AppDatabaseHelper dbHelper = new AppDatabaseHelper(this);
+            dbHelper.addPoint(score); // ⬅ cộng điểm!
+
             Intent intent = new Intent(this, SoundGameResultActivity.class);
             intent.putExtra("correctCount", score);
             intent.putExtra("totalQuestions", questionList.size());
