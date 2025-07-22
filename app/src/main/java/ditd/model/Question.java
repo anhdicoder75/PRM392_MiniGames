@@ -21,6 +21,8 @@ import java.util.List;
 public class Question {
     @PrimaryKey(autoGenerate = true)
     public int id;
+    @ColumnInfo(name = "question_text")
+    public String questionText;
     @ColumnInfo(name="images")
 
 
@@ -44,6 +46,6 @@ public class Question {
     public String explanation;
 
     @ColumnInfo(name="time_limit")
-    public int timeLimitSeconds;
+    public Integer timeLimitSeconds;
 
 }

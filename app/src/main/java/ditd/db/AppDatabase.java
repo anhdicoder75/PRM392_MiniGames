@@ -14,7 +14,7 @@ import ditd.model.Question;
 
 @Database(
         entities = {Question.class, Category.class},
-        version =   1,
+        version =   3,
         exportSchema = false
 )
 @TypeConverters(Converters.class)
@@ -30,7 +30,8 @@ public abstract class AppDatabase extends RoomDatabase {
                                 context.getApplicationContext(),
                                 AppDatabase.class,
                                 "image_guess_game.db"
-                        ).build();
+                        ).fallbackToDestructiveMigration()
+                        .build();
             }
         }
         return INSTANCE;

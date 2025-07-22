@@ -24,7 +24,7 @@ public class ImageGameCategoryActivity extends AppCompatActivity {
     private EditText etCategoryDescription;
     private Button btnAddCategory;
     private RecyclerView rvCategories;
-
+    private Button btnUpdateCategory;
     private ImageGameCategoryAdapter adapter;
     private List<Category> categoryList;
     private ImageGameCategoryDao imageGameCategoryDao;
@@ -40,11 +40,13 @@ public class ImageGameCategoryActivity extends AppCompatActivity {
         etCategoryName = findViewById(R.id.etCategoryName);
         etCategoryDescription = findViewById(R.id.etCategoryDescription);
 
+         btnUpdateCategory = findViewById(R.id.btnUpdateCategory);
         btnAddCategory = findViewById(R.id.btnAddCategory);
         rvCategories = findViewById(R.id.rvCategories);
 
         db = AppDatabase.getInstance(getApplicationContext());
         imageGameCategoryDao = db.imageGameCategoryDao();
+
 
         loadCategories();
 
@@ -54,19 +56,37 @@ public class ImageGameCategoryActivity extends AppCompatActivity {
             if (name.isEmpty()) return;
 
             Executors.newSingleThreadExecutor().execute(() -> {
-                if (editingCategory == null) {
-                    imageGameCategoryDao.insert(new Category(name, description));
-                } else {
-                    editingCategory.name = name;
-                    editingCategory.description = description;
-                    imageGameCategoryDao.update(editingCategory);
-                    editingCategory = null;
-                }
-
+                imageGameCategoryDao.insert(new Category(name, description));
                 runOnUiThread(() -> {
                     etCategoryName.setText("");
                     etCategoryDescription.setText("");
-                    loadCategories(); // phải gọi trong UI thread
+                    loadCategories();
+                });
+            });
+        });
+
+        btnUpdateCategory.setOnClickListener(v -> {
+            if (editingCategory == null) return;
+
+            String name = etCategoryName.getText().toString().trim();
+            String description = etCategoryDescription.getText().toString().trim();
+            if (name.isEmpty()) return;
+
+            Executors.newSingleThreadExecutor().execute(() -> {
+                editingCategory.name = name;
+                editingCategory.description = description;
+                imageGameCategoryDao.update(editingCategory);
+
+                runOnUiThread(() -> {
+                    editingCategory = null;
+                    etCategoryName.setText("");
+                    etCategoryDescription.setText("");
+
+                    btnUpdateCategory.setEnabled(false);
+                    btnUpdateCategory.setBackgroundTintList(getColorStateList(android.R.color.darker_gray));
+                    btnAddCategory.setBackgroundTintList(getColorStateList(android.R.color.holo_blue_light));
+
+                    loadCategories();
                 });
             });
         });
@@ -87,15 +107,15 @@ public class ImageGameCategoryActivity extends AppCompatActivity {
                             etCategoryName.setText(category.name);
                             etCategoryDescription.setText(category.description);
                             editingCategory = category;
-                        }
 
+                            btnUpdateCategory.setEnabled(true);
+                            btnUpdateCategory.setBackgroundTintList(getColorStateList(android.R.color.holo_blue_light));
+                            btnAddCategory.setBackgroundTintList(getColorStateList(android.R.color.darker_gray));
+                        }
                         @Override
                         public void onDelete(Category category) {
-                            Executors.newSingleThreadExecutor().execute(() -> {
-                                imageGameCategoryDao.delete(category); // xóa ở background
-                                loadCategories(); // gọi lại sau khi xóa
-                            });
                         }
+
                     });
                     rvCategories.setLayoutManager(new LinearLayoutManager(ImageGameCategoryActivity.this));
                     rvCategories.setAdapter(adapter);
@@ -105,5 +125,6 @@ public class ImageGameCategoryActivity extends AppCompatActivity {
             });
         });
     }
+
 
 }

@@ -19,6 +19,7 @@ public class ImageGameCategoryAdapter extends RecyclerView.Adapter<ImageGameCate
 
     private List<Category> categories;
     private final OnCategoryClickListener listener;
+    private int selectedIndex = -1; // Không chọn gì lúc đầu
 
     public interface OnCategoryClickListener {
         void onEdit(Category category);
@@ -47,9 +48,29 @@ public class ImageGameCategoryAdapter extends RecyclerView.Adapter<ImageGameCate
         Category c = categories.get(position);
         holder.tvName.setText(c.name);
 
-        holder.btnEdit.setOnClickListener(v -> listener.onEdit(c));
-        holder.btnDelete.setOnClickListener(v -> listener.onDelete(c));
+        if (position == selectedIndex) {
+            holder.itemView.setBackgroundColor(
+                    androidx.core.content.ContextCompat.getColor(holder.itemView.getContext(), android.R.color.holo_blue_light)
+            );
+            holder.tvName.setTypeface(null, android.graphics.Typeface.BOLD);
+        } else {
+            holder.itemView.setBackgroundColor(
+                    androidx.core.content.ContextCompat.getColor(holder.itemView.getContext(), android.R.color.transparent)
+            );
+            holder.tvName.setTypeface(null, android.graphics.Typeface.NORMAL);
+        }
+
+        holder.itemView.setOnClickListener(v -> {
+            int currentPosition = holder.getAdapterPosition();
+            if (currentPosition == RecyclerView.NO_POSITION) return;
+
+            selectedIndex = currentPosition;
+            notifyDataSetChanged();
+
+            listener.onEdit(categories.get(currentPosition));
+        });
     }
+
 
     @Override
     public int getItemCount() {
@@ -58,13 +79,10 @@ public class ImageGameCategoryAdapter extends RecyclerView.Adapter<ImageGameCate
 
     public static class CategoryViewHolder extends RecyclerView.ViewHolder {
         TextView tvName;
-        ImageButton btnEdit, btnDelete;
 
         public CategoryViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tvCategoryName);
-            btnEdit = itemView.findViewById(R.id.btnEdit);
-            btnDelete = itemView.findViewById(R.id.btnDelete);
         }
     }
 }

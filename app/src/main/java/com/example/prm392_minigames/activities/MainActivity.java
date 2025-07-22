@@ -17,7 +17,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.prm392_minigames.R;
 import com.example.prm392_minigames.adapters.MiniGameAdapter;
 import com.example.prm392_minigames.son.SonMain;
@@ -29,6 +28,8 @@ import com.example.prm392_minigames.hangmangame.db.AppDatabaseHelper;
 import com.example.prm392_minigames.models.MiniGame;
 import java.util.Arrays;
 import java.util.List;
+import java.util.*;
+import ditd.activity.ImageGamePlayActivity;
 
 public class MainActivity extends AppCompatActivity implements MiniGameAdapter.OnGameClickListener {
     ImageView imgAvatar, imgFrame;

@@ -1,0 +1,4 @@
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android" android:oneshot="false">
+    <item android:drawable="@drawable/image_game_result_frame_gradient1" android:duration="3000"/>
+    <item android:drawable="@drawable/image_game_result_frame_gradient2" android:duration="3000"/>
+</animation-list>

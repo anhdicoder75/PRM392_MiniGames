@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.prm392_minigames.R;
 
 import java.util.List;
 
@@ -32,8 +33,25 @@ public class ImageGameUrlAdapter extends RecyclerView.Adapter<ImageGameUrlAdapte
     @Override
     public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
         String url = imageUrls.get(position);
+
+        // Calculate available height (RecyclerView height - padding)
+        // RecyclerView is 200dp with 8dp padding on each side = 184dp available
+        int availableHeight = (int) (184 * holder.imageView.getContext().getResources().getDisplayMetrics().density);
+
+        // Set proper layout parameters for the ImageView
+        ViewGroup.LayoutParams layoutParams = holder.imageView.getLayoutParams();
+        layoutParams.width = availableHeight; // Make it square
+        layoutParams.height = availableHeight; // Fit the available height
+        holder.imageView.setLayoutParams(layoutParams);
+
+        // Set scale type for better image display
+        holder.imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
+        // Load image with Glide
         Glide.with(holder.imageView.getContext())
                 .load(url)
+                .override(184, 184) // Match the ImageView size
+                .centerCrop()
                 .into(holder.imageView);
     }
 

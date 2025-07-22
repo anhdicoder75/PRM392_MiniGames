@@ -60,6 +60,29 @@
             android:parentActivityName=".son.activities.AdminQuestionActivity" />
 
 
+<!--        image guess game-->
+        <activity android:name="ditd.activity.ImageGameQuestionResultActivity"/>
+        <activity android:name="ditd.activity.ImageGamePlayActivity"/>
+        <activity android:name="ditd.activity.ImageGameGameOverActivity"/>
+    <activity android:name="ditd.activity.ImageGameAddQuestionsActivity"/>
+    <activity android:name="ditd.activity.ImageGameCategoryActivity"/>
+    <activity android:name="ditd.activity.ImageGameDetailQuestionActivity"/>
+    <activity android:name="ditd.activity.ImageGameEditQuestionActivity"/>
+    <activity android:name="ditd.activity.ImageGameQuestionListActivity"/>
+
+
+
+    <activity android:name=".activities.AdminImageCrudActivity"/>
+
+
+
+
+        
+
+
+
+
+
     <activity android:name=".hangmangame.HangmanGameActivity" />
     <activity android:name=".hangmangame.GameScoreActivity" />
     <activity android:name=".hangmangame.HangmanMainActivity" />
