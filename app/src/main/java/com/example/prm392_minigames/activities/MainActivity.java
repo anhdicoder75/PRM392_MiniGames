@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.widget.*;
+
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,8 +17,12 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.prm392_minigames.R;
 import com.example.prm392_minigames.adapters.MiniGameAdapter;
+import com.example.prm392_minigames.son.SonMain;
+
+import android.graphics.drawable.AnimationDrawable;
 import com.example.prm392_minigames.hangmangame.HangmanMainActivity;
 import namnq.activity.SoundGamePlayActivity;
 import com.example.prm392_minigames.hangmangame.db.AppDatabaseHelper;
@@ -91,7 +97,6 @@ public class MainActivity extends AppCompatActivity implements MiniGameAdapter.O
                     break;
             }
         });
-
 
         rvGames.setLayoutManager(new LinearLayoutManager(this));
         rvGames.setAdapter(adapter);
