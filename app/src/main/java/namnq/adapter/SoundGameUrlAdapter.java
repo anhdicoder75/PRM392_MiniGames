@@ -37,7 +37,7 @@ public class SoundGameUrlAdapter extends RecyclerView.Adapter<SoundGameUrlAdapte
         String assetPath = soundPaths.get(position);
 
         String name = assetPath.substring(assetPath.lastIndexOf('/') + 1);
-        holder.tvSoundName.setText(name);
+//        holder.tvSoundName.setText(name);
 
         holder.btnPlaySound.setOnClickListener(v -> playSoundFromAssets(assetPath));
     }
@@ -52,12 +52,12 @@ public class SoundGameUrlAdapter extends RecyclerView.Adapter<SoundGameUrlAdapte
     }
 
     public static class SoundViewHolder extends RecyclerView.ViewHolder {
-        TextView tvSoundName;
+//        TextView tvSoundName;
         ImageView btnPlaySound;
 
         public SoundViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvSoundName = itemView.findViewById(R.id.tvSoundName);
+//            tvSoundName = itemView.findViewById(R.id.tvSoundName);
             btnPlaySound = itemView.findViewById(R.id.btnPlaySound);
         }
     }

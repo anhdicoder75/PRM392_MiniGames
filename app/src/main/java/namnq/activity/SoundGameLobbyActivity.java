@@ -12,14 +12,14 @@ import com.example.prm392_minigames.R;
 import java.util.List;
 import java.util.concurrent.Executors;
 
+import com.example.prm392_minigames.activities.MainActivity;
 import namnq.dao.SoundGameQuestionDao;
 import namnq.db.SoundAppDatabase;
 import namnq.model.SoundQuestion;
 
 public class SoundGameLobbyActivity extends AppCompatActivity {
 
-    private Button btnStartGame, btnAddQuestion;
-
+    private Button btnStartGame, btnExit;
     private SoundGameQuestionDao questionDao;
     private List<SoundQuestion> questionList;
 
@@ -29,7 +29,7 @@ public class SoundGameLobbyActivity extends AppCompatActivity {
         setContentView(R.layout.sound_game_activity_lobby);
 
         btnStartGame = findViewById(R.id.btnStartGame);
-        btnAddQuestion = findViewById(R.id.btnAddQuestion);
+        btnExit = findViewById(R.id.btnExit);
 
         SoundAppDatabase db = SoundAppDatabase.getInstance(this);
         questionDao = db.soundGameQuestionDao();
@@ -44,8 +44,12 @@ public class SoundGameLobbyActivity extends AppCompatActivity {
             }
         });
 
-        btnAddQuestion.setOnClickListener(v ->
-                startActivity(new Intent(this, ManageQuestionsActivity.class)));
+        btnExit.setOnClickListener(v -> {
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(intent);
+            finish();
+        });
     }
 
     private void loadQuestions() {

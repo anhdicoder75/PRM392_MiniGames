@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="@drawable/dialog_background">
+
+    <TextView
+        android:id="@+id/tv_final_score"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Quiz Completed!\nFinal Score: 0"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="24dp"
+        android:textColor="@android:color/holo_green_dark" />
+
+    <Button
+        android:id="@+id/btn_retry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Retry Quiz"
+        android:textColor="@android:color/white"
+        android:background="@drawable/button_primary"
+        android:layout_marginBottom="12dp" />
+
+    <Button
+        android:id="@+id/btn_back_to_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Back to Categories"
+        android:textColor="@android:color/black"
+        android:background="@drawable/button_secondary" />
+
+</LinearLayout>

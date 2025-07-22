@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="@drawable/dialog_background">
+
+    <TextView
+        android:id="@+id/tv_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Result"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:id="@+id/tv_correct_answer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Correct answer: Option"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_points"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Points"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="20dp"
+        android:textColor="@android:color/holo_blue_dark" />
+
+    <TextView
+        android:id="@+id/tv_explanation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Explanation: ..."
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#000000"
+        android:paddingBottom="12dp"
+        android:visibility="gone" />
+
+
+    <Button
+        android:id="@+id/btn_next"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Next Question"
+        android:textColor="@android:color/white"
+        android:background="@drawable/button_primary" />
+
+</LinearLayout>

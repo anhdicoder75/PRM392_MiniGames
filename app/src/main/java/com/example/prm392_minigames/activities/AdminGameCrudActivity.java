@@ -8,6 +8,8 @@ import com.example.prm392_minigames.R;
 import com.example.prm392_minigames.adapters.AdminGameAdapter;
 import com.example.prm392_minigames.hangmangame.HangmanMainActivity;
 import com.example.prm392_minigames.models.AdminGame;
+import com.example.prm392_minigames.son.AdminMain;
+
 import java.util.*;
 
 public class AdminGameCrudActivity extends Activity {
@@ -33,7 +35,7 @@ public class AdminGameCrudActivity extends Activity {
             // Tùy game mà vào từng CRUD tương ứng
             switch (position) {
                 case 0: // Quiz
-                    startActivity(new Intent(this, AdminQuizCrudActivity.class));
+                    startActivity(new Intent(this, AdminMain.class));
                     break;
                 case 1: // Sound Guess
                     startActivity(new Intent(this, AdminSoundCrudActivity.class));

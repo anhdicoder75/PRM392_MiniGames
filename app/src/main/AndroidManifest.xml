@@ -19,6 +19,45 @@
       </intent-filter>
     </activity>
 
+        <activity
+            android:name=".son.SonMain"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+
+        <activity
+            android:name=".son.activities.QuizActivity"
+            android:exported="false"
+            android:parentActivityName=".son.SonMain" />
+
+        <activity
+            android:name=".son.activities.ScoreActivity"
+            android:exported="false"
+            android:parentActivityName=".son.SonMain" />
+
+        <activity
+            android:name=".son.AdminMain"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+
+        <activity
+            android:name=".son.activities.AdminCategoryActivity"
+            android:exported="false"
+            android:parentActivityName=".son.AdminMain" />
+
+        <activity
+            android:name=".son.activities.AdminQuestionActivity"
+            android:exported="false"
+            android:parentActivityName=".son.AdminMain" />
+
+        <activity
+            android:name=".son.activities.AddEditCategoryActivity"
+            android:exported="false"
+            android:parentActivityName=".son.activities.AdminCategoryActivity" />
+
+        <activity
+            android:name=".son.activities.AddEditQuestionActivity"
+            android:exported="false"
+            android:parentActivityName=".son.activities.AdminQuestionActivity" />
 
 
 <!--        image guess game-->
@@ -37,6 +76,13 @@
     <activity android:name=".hangmangame.HangmanMainActivity" />
     <activity android:name=".hangmangame.AddWordActivity" />
 
+    <!-- Sound Guess Game (Nam) -->
+    <activity android:name="namnq.activity.SoundGameAddQuestionsActivity" />
+    <activity android:name="namnq.activity.SoundGameCategoryActivity" />
+    <activity android:name="namnq.activity.SoundGameLobbyActivity" />
+    <activity android:name="namnq.activity.SoundGamePlayActivity" />
+    <activity android:name="namnq.activity.SoundGameResultActivity" />
+
     <!-- Các activity khác (nên khai báo) -->
     <activity android:name=".activities.ProfileActivity" />
     <activity android:name=".activities.MainActivity" />
@@ -46,6 +92,8 @@
     <activity android:name=".activities.MemoryGameActivity" />
     <activity android:name=".activities.AdminLoginActivity" />
     <activity android:name=".activities.AdminGameCrudActivity" />
+    <activity android:name=".activities.AdminSoundCrudActivity" />
+
   </application>
 
 </manifest>

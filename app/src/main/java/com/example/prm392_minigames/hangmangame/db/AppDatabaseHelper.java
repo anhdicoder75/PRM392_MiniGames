@@ -89,6 +89,16 @@ public class AppDatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void addPoint(int delta) {
+        Cursor cursor = getProfile();
+        if (cursor != null && cursor.moveToFirst()) {
+            int current = cursor.getInt(cursor.getColumnIndexOrThrow(COL_POINT));
+            updatePoint(current + delta);
+            cursor.close();
+        }
+    }
+
+
     public void clearProfile() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_PROFILE, null, null);

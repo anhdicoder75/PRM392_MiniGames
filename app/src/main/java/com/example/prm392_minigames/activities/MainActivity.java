@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.widget.*;
+
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,7 +19,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.prm392_minigames.R;
 import com.example.prm392_minigames.adapters.MiniGameAdapter;
+import com.example.prm392_minigames.son.SonMain;
+
+import android.graphics.drawable.AnimationDrawable;
 import com.example.prm392_minigames.hangmangame.HangmanMainActivity;
+import namnq.activity.SoundGameLobbyActivity;
 import com.example.prm392_minigames.hangmangame.db.AppDatabaseHelper;
 import com.example.prm392_minigames.models.MiniGame;
 import java.util.Arrays;
@@ -26,10 +32,6 @@ import java.util.*;
 import ditd.activity.ImageGamePlayActivity;
 
 public class MainActivity extends AppCompatActivity implements MiniGameAdapter.OnGameClickListener {
-
-
-
-
     ImageView imgAvatar, imgFrame;
     TextView tvWelcome, tvPoint;
     Button btnShop, btnProfile;
@@ -74,13 +76,21 @@ public class MainActivity extends AppCompatActivity implements MiniGameAdapter.O
 
         MiniGameAdapter adapter = new MiniGameAdapter(games, position -> {
             switch (position) {
-                case 1: // Memory game
+                case 0:
+                    // Quiz Game - chưa có
+                    Toast.makeText(this, "Chức năng game này sẽ sớm mở!", Toast.LENGTH_SHORT).show();
+                    break;
+                case 1:
                     startActivity(new Intent(this, MemoryGameActivity.class));
                     break;
-                case 3: // Image Guess
-                    startActivity(new Intent(this, ImageGamePlayActivity.class));
+                case 2:
+                    startActivity(new Intent(this, SoundGameLobbyActivity.class));
                     break;
-                case 4: // Hangman
+                case 3:
+                    // Image Guess Game - chưa có
+                    Toast.makeText(this, "Chức năng game này sẽ sớm mở!", Toast.LENGTH_SHORT).show();
+                    break;
+                case 4:
                     startActivity(new Intent(this, HangmanMainActivity.class));
                     break;
                 default:
