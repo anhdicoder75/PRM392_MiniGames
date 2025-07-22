@@ -24,7 +24,7 @@ import com.example.prm392_minigames.son.SonMain;
 
 import android.graphics.drawable.AnimationDrawable;
 import com.example.prm392_minigames.hangmangame.HangmanMainActivity;
-import namnq.activity.SoundGamePlayActivity;
+import namnq.activity.SoundGameLobbyActivity;
 import com.example.prm392_minigames.hangmangame.db.AppDatabaseHelper;
 import com.example.prm392_minigames.models.MiniGame;
 import java.util.Arrays;
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements MiniGameAdapter.O
                     startActivity(new Intent(this, MemoryGameActivity.class));
                     break;
                 case 2:
-                    startActivity(new Intent(this, SoundGamePlayActivity.class));
+                    startActivity(new Intent(this, SoundGameLobbyActivity.class));
                     break;
                 case 3:
                     // Image Guess Game - chưa có

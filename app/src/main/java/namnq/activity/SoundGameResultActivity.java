@@ -37,9 +37,9 @@ public class SoundGameResultActivity extends AppCompatActivity {
         double percent = ((double) correctCount / totalQuestions) * 100;
 
         // Display result
-        tvResult.setText("✅ Bạn trả lời đúng: " + correctCount + " / " + totalQuestions);
-        tvSummary.setText("❌ Sai: " + incorrectCount + " câu");
-        tvScorePercent.setText("🏆 Điểm lượt chơi: " + gameScore + " điểm (" + String.format("%.2f", percent) + "%)");
+        tvResult.setText("Số câu đúng: " + correctCount + " / " + totalQuestions);
+        tvSummary.setText("Sai: " + incorrectCount + " câu");
+        tvScorePercent.setText("Điểm lượt chơi: " + gameScore + " điểm");
 
         // Cộng điểm vào profile
         AppDatabaseHelper dbHelper = new AppDatabaseHelper(this);
@@ -50,7 +50,7 @@ public class SoundGameResultActivity extends AppCompatActivity {
             int newTotalPoint = currentTotalPoint + gameScore;
             dbHelper.updatePoint(newTotalPoint);
 
-            tvScorePercent.append("\n🎯 Tổng điểm tích lũy mới: " + newTotalPoint + " điểm");
+            tvScorePercent.append("\nTổng điểm tích hiện tại: " + newTotalPoint + " điểm");
         }
 
         // Back button
